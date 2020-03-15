@@ -43,12 +43,17 @@ public class PinchGestureListenerTest {
     }
 
     @Test
-    public void onScale_thenPictureShown_whenScaleIsGreaterThan1() {
+    public void onScale_thenPictureShown_whenScaleIsGreaterThanOneTenTimesStraight() {
         // when
-        when(detector.getScaleFactor()).thenReturn((float)1.1);
+        for (int i = 0; i < 10; ++i) {
+            when(detector.getScaleFactor()).thenReturn((float)1.1);
+        }
 
         // then
-        boolean observed = pinchGestureListener.onScale(detector);
+        boolean observed = false;
+        for (int i = 0; i < 10; ++i) {
+            observed = pinchGestureListener.onScale(detector);
+        }
 
         // verify
         boolean expected = true;
@@ -57,16 +62,59 @@ public class PinchGestureListenerTest {
     }
 
     @Test
-    public void onScale_thenOptionsShown_whenScaleIsLessThan1() {
+    public void onScale_thenOptionsShown_whenScaleIsLessThanOneTenTimesStraight() {
         // when
-        when(detector.getScaleFactor()).thenReturn((float).9);
+        for (int i = 0; i < 10; ++i) {
+            when(detector.getScaleFactor()).thenReturn((float).9);
+        }
 
         // then
-        boolean observed = pinchGestureListener.onScale(detector);
+        boolean observed = false;
+        for (int i = 0; i < 10; ++i) {
+            observed = pinchGestureListener.onScale(detector);
+        }
 
         // verify
         boolean expected = true;
         assertEquals(expected, observed);
         verify(viewController).showOptions();
+    }
+
+    @Test
+    public void onScale_thenNothing_whenScaleIsGreaterThanOneNineTimesStraight() {
+        // when
+        for (int i = 0; i < 9; ++i) {
+            when(detector.getScaleFactor()).thenReturn((float)1.1);
+        }
+
+        // then
+        boolean observed = false;
+        for (int i = 0; i < 9; ++i) {
+            observed = pinchGestureListener.onScale(detector);
+        }
+
+        // verify
+        boolean expected = true;
+        assertEquals(expected, observed);
+        verifyZeroInteractions(viewController);
+    }
+
+    @Test
+    public void onScale_thenNothing_whenScaleIsLessThanOneNineTimesStraight() {
+        // when
+        for (int i = 0; i < 9; ++i) {
+            when(detector.getScaleFactor()).thenReturn((float).9);
+        }
+
+        // then
+        boolean observed = false;
+        for (int i = 0; i < 9; ++i) {
+            observed = pinchGestureListener.onScale(detector);
+        }
+
+        // verify
+        boolean expected = true;
+        assertEquals(expected, observed);
+        verifyZeroInteractions(viewController);
     }
 }
