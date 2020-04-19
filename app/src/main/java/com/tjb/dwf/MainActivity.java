@@ -3,12 +3,16 @@ package com.tjb.dwf;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
     private ViewController viewController;
     private ScaleGestureDetector scaleGestureDetector;
 
@@ -35,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
         boolean isPinch = scaleGestureDetector.onTouchEvent(ev);
 
         return isPinch ? true : super.onTouchEvent(ev);
+    }
+
+    public void onClickCreatePicture(View v) {
+        Intent intent = new Intent(this, CreatePictureActivity.class);
+        Button createPictureButton = (Button) findViewById(R.id.createPictureButton);
+        String message = createPictureButton.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
     }
 
     private boolean optionsShowing() {
