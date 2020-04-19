@@ -9,15 +9,43 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent="0.85"
-        app:layout_constraintHeight_percent="0.85"
-        app:layout_constraintVertical_bias="0.04"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/createPictureText"
-        android:text="change me">
-
+        app:layout_constraintBottom_toTopOf="@id/optionsLayout"
+        android:id="@+id/createPictureTitle"
+        android:text="Create Picture Menu">
     </TextView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/optionsLayout"
+        app:layout_constraintWidth_percent="0.85"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createPictureTitle"
+        app:layout_constraintBottom_toTopOf="@id/submitButton">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pictureTitle"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:text="&lt;Enter Title&gt;">
+        </EditText>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.04"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/optionsLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/submitButton"
+        android:onClick="onClickSubmit"
+        android:text="Submit">
+    </Button>
 </androidx.constraintlayout.widget.ConstraintLayout>
