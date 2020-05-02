@@ -61,10 +61,13 @@ public class CreatePictureActivity extends AppCompatActivity {
                     .field("test")
                     .eq("TJTAG")
                     .execute()
-                    .get();
+                    .get(2, TimeUnit.SECONDS);
         } catch (Exception e) {
             Toast.makeText(this,"exception", Toast.LENGTH_SHORT).show();
+            Log.e("Exception", e.getMessage());
+            e.printStackTrace();
         }
+        Log.e("problem", "problem");
         Toast.makeText(this,"no exception?", Toast.LENGTH_SHORT).show();
     }
 }
