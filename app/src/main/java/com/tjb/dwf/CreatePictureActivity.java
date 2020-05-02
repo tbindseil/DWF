@@ -24,8 +24,28 @@ import com.microsoft.windowsazure.mobileservices.MobileServiceList;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.query.ExecutableQuery;
 
+import java.io.InputStream;
+import java.net.Socket;
+import java.net.SocketImplFactory;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import static org.apache.http.conn.ssl.SSLSocketFactory.TLS;
 
 public class CreatePictureActivity extends AppCompatActivity {
     private MobileServiceClient mClient;
@@ -34,6 +54,19 @@ public class CreatePictureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_picture);
+
+        try {
+            enableSslCert();
+        } catch (Exception e) {
+            Log.e("enableSslCerts", "exception");
+            e.printStackTrace();
+        }
+
+        //Socket.setSocketImplFactory((SocketImplFactory) () -> {
+        //
+        //});
+        //DefaultSSLSocketFactory
+        //SocketFactory    //.setSocketImplFactory(SocketFactory.getDefault());
 
         try {
             // why not inject this dep in?
@@ -47,15 +80,8 @@ public class CreatePictureActivity extends AppCompatActivity {
 
     // TODO send title and hopefully username!
     public void onClickSubmit(View v) {
-        MobileServiceTable<ToDoItem> toDoTable = mClient.getTable(ToDoItem.class);
+        /*MobileServiceTable<ToDoItem> toDoTable = mClient.getTable(ToDoItem.class);
         try {
-            //ExecutableQuery<ToDoItem> query = toDoTable.where();
-            //query = query.field("text");
-            //query = query.eq("TJTAG");
-
-            //ListenableFuture<MobileServiceList<ToDoItem>> soon2be = query.execute();
-            //List<ToDoItem> results = soon2be.get(10, TimeUnit.SECONDS);
-
             List<ToDoItem> results = toDoTable
                     .where()
                     .field("test")
@@ -68,6 +94,69 @@ public class CreatePictureActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Log.e("problem", "problem");
-        Toast.makeText(this,"no exception?", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"no exception?", Toast.LENGTH_SHORT).show();*/
+
+        Thread wikiThread = new WikiThread();
+        wikiThread.start();
+    }
+
+    /**
+     * Method that bypasses every SSL certificate verification and accepts every
+     * connection with any SSL protected device that ONOS has an interaction with.
+     * Needs addressing for secutirty purposes.
+     *
+     * @throws NoSuchAlgorithmException if algorithm specified is not available
+     * @throws KeyManagementException if unable to use the key
+     */
+    //FIXME redo for security purposes.
+    protected static void enableSslCert() throws NoSuchAlgorithmException, KeyManagementException {
+        SSLContext ctx = SSLContext.getInstance(TLS);
+        ctx.init(new KeyManager[0], new TrustManager[]{new DefaultTrustManager()}, new SecureRandom());
+        SSLContext.setDefault(ctx);
+        HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> {
+            //FIXME better way to do this.
+            return true;
+        });
+    }
+
+    //FIXME this accepts every connection
+    private static class DefaultTrustManager implements X509TrustManager {
+
+        @Override
+        public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+        }
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return null;
+        }
+    }
+
+
+    class WikiThread extends Thread {
+        public void run() {
+            try {
+                Log.e("count", "1");
+                URL url = new URL("https://simplelinuxvm-eyctacw3skh6o.westus2.cloudapp.azure.com:5001");
+                Log.e("count", "2");
+                URLConnection urlConnection = url.openConnection();
+                Log.e("count", "3");
+                InputStream in = urlConnection.getInputStream();
+                Log.e("count", "4");
+                int size = in.available();
+                Log.e("count", "5");
+                byte bytes[] = new byte[size];
+                Log.e("count", "6");
+                int numBytesRead = in.read(bytes, 0, size);
+                Log.e("Read", "num bytes read is " + numBytesRead);
+                Log.e("Read", new String(bytes));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
