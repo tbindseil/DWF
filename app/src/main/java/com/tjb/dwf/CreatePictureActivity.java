@@ -25,6 +25,7 @@ import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.query.ExecutableQuery;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class CreatePictureActivity extends AppCompatActivity {
     private MobileServiceClient mClient;
@@ -36,7 +37,7 @@ public class CreatePictureActivity extends AppCompatActivity {
 
         try {
             // why not inject this dep in?
-            mClient = new MobileServiceClient("https://52.250.108.250", this);
+            mClient = new MobileServiceClient("https://52.250.108.250:5001/Index", this);
         } catch (Exception e) {
             Log.e("CreatePictureActivity", "exception creating mobile client");
             Log.e("CreatePictureActivity", e.getMessage());
@@ -46,40 +47,21 @@ public class CreatePictureActivity extends AppCompatActivity {
 
     // TODO send title and hopefully username!
     public void onClickSubmit(View v) {
-        // Instantiate the RequestQueue.
-        /*RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://helloworld-1587609361547.azurewebsites.net";
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // do stuff
-                        Toast.makeText(getApplicationContext(),"it worked", Toast.LENGTH_SHORT).show();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // do stuff
-                Toast.makeText(getApplicationContext(),"it didn't work", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);*/
-
-
         MobileServiceTable<ToDoItem> toDoTable = mClient.getTable(ToDoItem.class);
         try {
-            ExecutableQuery<ToDoItem> query = toDoTable.where();
-            query = query.field("text");
-            query = query.eq("TJTAG");
+            //ExecutableQuery<ToDoItem> query = toDoTable.where();
+            //query = query.field("text");
+            //query = query.eq("TJTAG");
 
-            ListenableFuture<MobileServiceList<ToDoItem>> soon2be = query.execute();
-            List<ToDoItem> results = soon2be.get();
+            //ListenableFuture<MobileServiceList<ToDoItem>> soon2be = query.execute();
+            //List<ToDoItem> results = soon2be.get(10, TimeUnit.SECONDS);
 
-                    //.where().field("text").endsWith("TJTAG").execute().get();
+            List<ToDoItem> results = toDoTable
+                    .where()
+                    .field("test")
+                    .eq("TJTAG")
+                    .execute()
+                    .get();
         } catch (Exception e) {
             Toast.makeText(this,"exception", Toast.LENGTH_SHORT).show();
         }
