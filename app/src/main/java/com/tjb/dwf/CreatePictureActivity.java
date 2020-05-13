@@ -2,6 +2,7 @@ package com.tjb.dwf;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.security.cert.Certificate;
+
 import org.w3c.dom.Text;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -24,15 +27,19 @@ import com.microsoft.windowsazure.mobileservices.MobileServiceList;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.query.ExecutableQuery;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.Socket;
 import java.net.SocketImplFactory;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.KeyManagementException;
+import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +50,7 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import static org.apache.http.conn.ssl.SSLSocketFactory.TLS;
@@ -96,7 +104,7 @@ public class CreatePictureActivity extends AppCompatActivity {
         Log.e("problem", "problem");
         Toast.makeText(this,"no exception?", Toast.LENGTH_SHORT).show();*/
 
-        Thread wikiThread = new WikiThread();
+        Thread wikiThread = new WikiThread(this.getApplicationContext());
         wikiThread.start();
     }
 
@@ -138,10 +146,107 @@ public class CreatePictureActivity extends AppCompatActivity {
 
 
     class WikiThread extends Thread {
+        private Context context;
+
+        WikiThread(Context context) {
+            this.context = context;
+        }
+
         public void run() {
             try {
+
+                // Load CAs from an InputStream
+                /*Log.e("TrustStoreConfiguration", "could be from a resource or ByteArrayInputStream or ...)");
+                // From https://www.washington.edu/itconnect/security/ca/load-der.crt
+                // InputStream caInput = new BufferedInputStream(new FileInputStream("load-der.crt"));
+                CertificateFactory cf = CertificateFactory.getInstance("X.509");
+                InputStream caInput = context.getAssets().open("localhost.crt");
+                Certificate ca;
+                try {
+                    ca = cf.generateCertificate(caInput);
+                    Log.e("TrustStoreConfiguration", "ca=" + ((X509Certificate) ca).getSubjectDN());
+                } finally {
+                    caInput.close();
+                }
+
+                Log.e("TrustStoreConfiguration", "a KeyStore containing our trusted CAs");
+                String keyStoreType = KeyStore.getDefaultType();
+                KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+                keyStore.load(null, null);
+                keyStore.setCertificateEntry("ca", ca);
+
+                Log.e("TrustStoreConfiguration", "a TrustManager that trusts the CAs in our KeyStore");
+                String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+                TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+                tmf.init(keyStore);
+
+                Log.e("TrustStoreConfiguration", "an SSLContext that uses our TrustManager");
+                SSLContext context = SSLContext.getInstance("TLS");
+                context.init(null, tmf.getTrustManagers(), null);
+
+                Log.e("TrustStoreConfiguration", "the URLConnection to use a SocketFactory from our SSLContext");
+                URL url = new URL("https://simplelinuxvm-eyctacw3skh6o.westus2.cloudapp.azure.com:5001/Index");
                 Log.e("count", "1");
-                URL url = new URL("https://simplelinuxvm-eyctacw3skh6o.westus2.cloudapp.azure.com:5001");
+                HttpsURLConnection urlConnection =
+                        (HttpsURLConnection)url.openConnection();
+                Log.e("count", "2");
+                urlConnection.setSSLSocketFactory(context.getSocketFactory());
+                Log.e("count", "3");
+                InputStream in = urlConnection.getInputStream();*/
+
+
+
+                Log.e("TrustStoreConfiguration", "could be from a resource or ByteArrayInputStream or ...)");
+                // From https://www.washington.edu/itconnect/security/ca/load-der.crt
+                // InputStream caInput = new BufferedInputStream(new FileInputStream("load-der.crt"));
+                //CertificateFactory cf = CertificateFactory.getInstance("X.509");
+                //InputStream caInput = context.getAssets().open("localhost.crt");
+                //Certificate ca;
+                //try {
+                    //ca = cf.generateCertificate(caInput);
+                    //Log.e("TrustStoreConfiguration", "ca=" + ((X509Certificate) ca).getSubjectDN());
+                //} finally {
+                    //caInput.close();
+                //}
+
+                Log.e("TrustStoreConfiguration", "a KeyStore containing our trusted CAs");
+                //String keyStoreType = KeyStore.getDefaultType();
+                //KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+                //keyStore.load(null, null);
+                //keyStore.setCertificateEntry("ca", ca);
+
+                Log.e("TrustStoreConfiguration", "a TrustManager that trusts the CAs in our KeyStore");
+                //String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+                //TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+                //tmf.init(keyStore);
+
+                Log.e("TrustStoreConfiguration", "an SSLContext that uses our TrustManager");
+                //SSLContext context = SSLContext.getInstance("TLS");
+                //context.init(null, tmf.getTrustManagers(), null);
+
+                Log.e("TrustStoreConfiguration", "the URLConnection to use a SocketFactory from our SSLContext");
+                URL url = new URL("https://Draw-n-stuff.com/Index");
+                //URL url = new URL("https://example.org");
+                Log.e("count", "1");
+                HttpsURLConnection urlConnection =
+                        (HttpsURLConnection)url.openConnection();
+                Log.e("count", "2");
+                // why are these switched?
+                //urlConnection.setSSLSocketFactory(context.getSocketFactory());
+                Log.e("count", "3");
+                InputStream in = urlConnection.getInputStream();
+
+                Log.e("count", "4");
+                int size = in.available();
+                Log.e("count", "5 and size is " + size);
+                byte bytes[] = new byte[size];
+                Log.e("count", "6");
+                int numBytesRead = in.read(bytes, 0, size);
+                Log.e("Read", "num bytes read is " + numBytesRead);
+                Log.e("Read", new String(bytes));
+
+                /*Log.e("count", "1");
+                URL url = new URL("https://example.org");
                 Log.e("count", "2");
                 URLConnection urlConnection = url.openConnection();
                 Log.e("count", "3");
@@ -153,7 +258,7 @@ public class CreatePictureActivity extends AppCompatActivity {
                 Log.e("count", "6");
                 int numBytesRead = in.read(bytes, 0, size);
                 Log.e("Read", "num bytes read is " + numBytesRead);
-                Log.e("Read", new String(bytes));
+                Log.e("Read", new String(bytes));*/
             } catch (Exception e) {
                 e.printStackTrace();
             }
