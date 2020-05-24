@@ -9,6 +9,13 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
+// steps:
+// 1) login with 2nd tutorial from today
+// 2) do that at the start
+// 3) store and reuse jwt in single session
+// 4) store and reuse jwt in multiple sessions (not encrypted)
+// 5) store and reuse jwt in multiple sessions, encrypted
+// 6) research token expiration
 public class MainActivity extends AppCompatActivity {
 
     private ViewController viewController;
@@ -40,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCreatePicture(View v) {
-        Intent intent = new Intent(this, CreatePictureActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
