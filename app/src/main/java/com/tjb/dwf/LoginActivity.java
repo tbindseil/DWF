@@ -44,10 +44,8 @@ public class LoginActivity extends AppCompatActivity {
             onResponse(response);
         };
 
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
+        Response.ErrorListener errorListener = (VolleyError error) -> {
+            onErrorResponse(error);
         };
 
         Request<JSONObject> request = new JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener);
@@ -74,11 +72,8 @@ public class LoginActivity extends AppCompatActivity {
             onResponse(response);
         };
 
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // todo
-            }
+        Response.ErrorListener errorListener = (VolleyError error) -> {
+            onErrorResponse(error);
         };
 
         Request<JSONObject> request = new JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener);
@@ -86,6 +81,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onResponse(JSONObject response) {
+        Log.d("LoginActivity", "response is:");
+        Log.d("LoginActivity", response.toString());
+
         try {
             // save User
             UserPojo user = GsonSingleton.getInstance().fromJson(response.toString(), UserPojo.class);
@@ -98,6 +96,13 @@ public class LoginActivity extends AppCompatActivity {
             Log.e("SignUpResponseHandler", "Exception generating pojo");
             finish();
         }
+    }
+
+    private void onErrorResponse(VolleyError error) {
+        String errorStr = error.toString();
+        Intent intent = new Intent(this.getApplicationContext(), ErrorActivity.class);
+        intent.putExtra(ErrorActivity.ERROR_SERIALIZATION_TAG, errorStr);
+        startActivity(intent);
     }
 
     @Override
