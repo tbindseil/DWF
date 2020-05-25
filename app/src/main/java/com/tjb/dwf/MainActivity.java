@@ -1,6 +1,5 @@
 package com.tjb.dwf;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
@@ -22,15 +21,14 @@ import java.io.Serializable;
 // 0) create user with 2nd tutorial - done
 // 1) login with 2nd tutorial from today - done
 // 2) do that at the start - done
-// 3) store and reuse jwt in single session
+// 3) store and reuse jwt in single session - done
+    // 3.5) consolidate user maintenance to a base activity class' onResume - done
 // 4) store and reuse jwt in multiple sessions (not encrypted)
 // 5) store and reuse jwt in multiple sessions, encrypted
 // 6) research token expiration
 // 7) validate input
 // 8) test
-public class MainActivity extends AppCompatActivity {
-
-    private UserPojo mUser;
+public class MainActivity extends AuthenticatedActivity {
 
     private ViewController viewController;
     private ScaleGestureDetector scaleGestureDetector;
@@ -52,24 +50,12 @@ public class MainActivity extends AppCompatActivity {
         PinchGestureListener pinchGestureListener = new PinchGestureListener(viewController);
         scaleGestureDetector = new ScaleGestureDetector(this, pinchGestureListener);
 
-
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
         // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
         RequestQueueSingleton.init(cache, network);
 
-        // check login status
-        Serializable result = getIntent().getSerializableExtra(UserPojo.SERIALIZE_TAG);
-        mUser = result instanceof UserPojo ? (UserPojo) result : null;
-        if (mUser == null) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        } else {
-            // TODO personalize interface
-            Log.e("MainActivity", "firstname is " + mUser.firstName + " and lastname is " + mUser.lastName);
-            Log.e("MainActivity", "jwt is " + mUser.token);
-        }
     }
 
     @Override

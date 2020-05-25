@@ -17,25 +17,13 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class CreatePictureActivity extends AppCompatActivity {
+public class CreatePictureActivity extends AuthenticatedActivity {
     private static final String TAG = "CREATE_PICTURE_TAG";
 
-    private UserPojo mUser;
-
     @Override
-    // TODO validate user onResume in super class
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_picture);
-
-
-        // check login status
-        Serializable result = getIntent().getSerializableExtra(UserPojo.SERIALIZE_TAG);
-        mUser = result instanceof UserPojo ? (UserPojo) result : null;
-
-        if (mUser == null) {
-            Log.e("CreatePictureActivity", "user is null on create");
-        }
     }
 
     // TODO send title and hopefully username!

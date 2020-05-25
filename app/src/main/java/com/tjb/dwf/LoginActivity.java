@@ -81,9 +81,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onResponse(JSONObject response) {
-        Log.d("LoginActivity", "response is:");
-        Log.d("LoginActivity", response.toString());
-
         try {
             // save User
             UserPojo user = GsonSingleton.getInstance().fromJson(response.toString(), UserPojo.class);
