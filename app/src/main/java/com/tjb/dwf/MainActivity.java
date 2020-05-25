@@ -16,12 +16,15 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 
 // steps:
-// 1) login with 2nd tutorial from today
+// 0) create user with 2nd tutorial - done
+// 1) login with 2nd tutorial from today - done
 // 2) do that at the start
 // 3) store and reuse jwt in single session
 // 4) store and reuse jwt in multiple sessions (not encrypted)
 // 5) store and reuse jwt in multiple sessions, encrypted
 // 6) research token expiration
+// 7) validate input
+// 8) test
 public class MainActivity extends AppCompatActivity {
 
     private ViewController viewController;

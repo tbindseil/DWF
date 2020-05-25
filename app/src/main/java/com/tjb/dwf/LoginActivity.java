@@ -32,7 +32,31 @@ public class LoginActivity extends AppCompatActivity {
         String username = ((TextView) findViewById(R.id.usernameText)).getText().toString();
         String password = ((TextView) findViewById(R.id.passwordText)).getText().toString();
 
-        //mQueue.addRequest();
+        Map<String, String> params = new HashMap<>();
+        params.put("username", username);
+        params.put("password", password);
+        JSONObject parameters = new JSONObject(params);
+
+        String url = "https://draw-n-stuff.com/users/authenticate";
+
+        Context context = this;
+        Response.Listener responseListener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(context, "success", Toast.LENGTH_LONG);
+            }
+        };
+
+        // BUG - sign up with pre existing user
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "error", Toast.LENGTH_LONG);
+            }
+        };
+
+        Request<JSONObject> request = new JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener);
+        RequestQueueSingleton.getInstance().add(request, TAG);
     }
 
     public void onClickSignUp(View v) {
@@ -52,17 +76,17 @@ public class LoginActivity extends AppCompatActivity {
         String url = "https://draw-n-stuff.com/users/register";
 
         Context context = this;
-        Response.Listener responseListener = new Response.Listener<String>() {
+        Response.Listener responseListener = new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Toast.makeText(context, "success", Toast.LENGTH_SHORT);
+            public void onResponse(JSONObject response) {
+                Toast.makeText(context, "success", Toast.LENGTH_LONG);
             }
         };
 
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "error", Toast.LENGTH_SHORT);
+                Toast.makeText(context, "error", Toast.LENGTH_LONG);
             }
         };
 
