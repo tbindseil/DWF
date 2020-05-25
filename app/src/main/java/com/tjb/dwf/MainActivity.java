@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // TODO personalize interface
             Log.e("MainActivity", "firstname is " + mUser.firstName + " and lastname is " + mUser.lastName);
+            Log.e("MainActivity", "jwt is " + mUser.token);
         }
     }
 
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCreatePicture(View v) {
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, CreatePictureActivity.class);
+        intent.putExtra(UserPojo.SERIALIZE_TAG, mUser);
         startActivity(intent);
     }
 

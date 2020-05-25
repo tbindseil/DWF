@@ -7,8 +7,6 @@ import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 
-import org.json.JSONObject;
-
 public class RequestQueueSingleton extends RequestQueue {
     private static RequestQueueSingleton instance;
 
@@ -36,7 +34,7 @@ public class RequestQueueSingleton extends RequestQueue {
         return instance;
     }
 
-    public void add(Request<JSONObject> request, Object tag) {
+    public void add(Request request, Object tag) {
         request.setTag(tag);
         add(request);
     }

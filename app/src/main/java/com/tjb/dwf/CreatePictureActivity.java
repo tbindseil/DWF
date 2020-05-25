@@ -3,6 +3,7 @@ package com.tjb.dwf;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,40 +12,59 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.Serializable;
 
 public class CreatePictureActivity extends AppCompatActivity {
     private static final String TAG = "CREATE_PICTURE_TAG";
 
+    private UserPojo mUser;
+
     @Override
+    // TODO validate user onResume in super class
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_picture);
+
+
+        // check login status
+        Serializable result = getIntent().getSerializableExtra(UserPojo.SERIALIZE_TAG);
+        mUser = result instanceof UserPojo ? (UserPojo) result : null;
+
+        if (mUser == null) {
+            Log.e("CreatePictureActivity", "user is null on create");
+        }
     }
 
     // TODO send title and hopefully username!
     public void onClickSubmit(View v) {
         TextView textView = findViewById(R.id.pictureTitle);
 
-        String url ="https://www.draw-n-stuff.com/api/blog";
-        Response.Listener responseListener = new Response.Listener<String>() {
+        String url ="https://www.draw-n-stuff.com/users";
+        Response.Listener responseListener = new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONArray response) {
                 // Display the first 500 characters of the response string.
-                textView.setText("Response is: "+ response);
+                textView.setText("Response is: " + response.toString());
             }
         };
 
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                textView.setText("That didn't work!");
+                textView.setText("error! " + error.toString());
             }
         };
 
         // Add the request to the RequestQueue.
-        JSONObject parameters = new JSONObject();
-        Request<JSONObject> request = new JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener);
+        Request<JSONArray> request = new AuthorizedJsonArrayRequest(Request.Method.GET,
+                url,
+                new JSONArray(),
+                responseListener,
+                errorListener,
+                mUser.token);
         RequestQueueSingleton.getInstance().add(request, TAG);
     }
 
