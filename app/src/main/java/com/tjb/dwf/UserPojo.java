@@ -8,7 +8,6 @@ public class UserPojo implements Serializable {
     public String firstName;
     public String lastName;
 
-    // TODO databinding
     public UserPojo(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;

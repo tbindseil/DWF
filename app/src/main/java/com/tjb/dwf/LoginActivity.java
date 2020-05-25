@@ -16,7 +16,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,19 +40,13 @@ public class LoginActivity extends AppCompatActivity {
 
         String url = "https://draw-n-stuff.com/users/authenticate";
 
-        Context context = this;
-        Response.Listener responseListener = new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Toast.makeText(context, "success", Toast.LENGTH_LONG);
-            }
+        Response.Listener<JSONObject> responseListener = (JSONObject response) -> {
+            onResponse(response);
         };
 
-        // BUG - sign up with pre existing user
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "error", Toast.LENGTH_LONG);
             }
         };
 
@@ -77,34 +70,34 @@ public class LoginActivity extends AppCompatActivity {
 
         String url = "https://draw-n-stuff.com/users/register";
 
-        Context context = this; // TODO why do I need this?
-        Response.Listener responseListener = new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    // save User
-                    UserPojo user = new UserPojo(response.getString("firstName"), response.getString("lastName"));
-
-                    // serialize user to main activity
-                    Intent intent = new Intent(context, MainActivity.class);
-                    intent.putExtra(UserPojo.SERIALIZE_TAG, user);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    Log.e("SignUpResponseHandler", "Exception generating pojo");
-                    finish();
-                }
-            }
+        Response.Listener<JSONObject> responseListener = (JSONObject response) -> {
+            onResponse(response);
         };
 
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "error", Toast.LENGTH_LONG);
+                // todo
             }
         };
 
         Request<JSONObject> request = new JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener);
         RequestQueueSingleton.getInstance().add(request, TAG);
+    }
+
+    private void onResponse(JSONObject response) {
+        try {
+            // save User
+            UserPojo user = GsonSingleton.getInstance().fromJson(response.toString(), UserPojo.class);
+
+            // serialize user to main activity
+            Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
+            intent.putExtra(UserPojo.SERIALIZE_TAG, user);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e("SignUpResponseHandler", "Exception generating pojo");
+            finish();
+        }
     }
 
     @Override
