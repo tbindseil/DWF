@@ -23,6 +23,7 @@ public class RequestQueueSingleton extends RequestQueue {
     public static synchronized void init(Cache cache, Network network) {
         if (instance == null) {
             instance = new RequestQueueSingleton(cache, network);
+            instance.start();
         } else {
             Log.e("RequestQueueSingleton", "inited again!");
         }
