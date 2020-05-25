@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -15,10 +16,12 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 
+import java.io.Serializable;
+
 // steps:
 // 0) create user with 2nd tutorial - done
 // 1) login with 2nd tutorial from today - done
-// 2) do that at the start
+// 2) do that at the start - done
 // 3) store and reuse jwt in single session
 // 4) store and reuse jwt in multiple sessions (not encrypted)
 // 5) store and reuse jwt in multiple sessions, encrypted
@@ -26,6 +29,8 @@ import com.android.volley.toolbox.HurlStack;
 // 7) validate input
 // 8) test
 public class MainActivity extends AppCompatActivity {
+
+    private UserPojo mUser;
 
     private ViewController viewController;
     private ScaleGestureDetector scaleGestureDetector;
@@ -53,6 +58,17 @@ public class MainActivity extends AppCompatActivity {
         // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
         RequestQueueSingleton.init(cache, network);
+
+        // check login status
+        Serializable result = getIntent().getSerializableExtra(UserPojo.SERIALIZE_TAG);
+        mUser = result instanceof UserPojo ? (UserPojo) result : null;
+        if (mUser == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            // TODO personalize interface
+            Log.e("MainActivity", "firstname is " + mUser.firstName + " and lastname is " + mUser.lastName);
+        }
     }
 
     @Override

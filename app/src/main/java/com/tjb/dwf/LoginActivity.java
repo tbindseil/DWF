@@ -3,7 +3,9 @@ package com.tjb.dwf;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,11 +77,22 @@ public class LoginActivity extends AppCompatActivity {
 
         String url = "https://draw-n-stuff.com/users/register";
 
-        Context context = this;
+        Context context = this; // TODO why do I need this?
         Response.Listener responseListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(context, "success", Toast.LENGTH_LONG);
+                try {
+                    // save User
+                    UserPojo user = new UserPojo(response.getString("firstName"), response.getString("lastName"));
+
+                    // serialize user to main activity
+                    Intent intent = new Intent(context, MainActivity.class);
+                    intent.putExtra(UserPojo.SERIALIZE_TAG, user);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Log.e("SignUpResponseHandler", "Exception generating pojo");
+                    finish();
+                }
             }
         };
 
