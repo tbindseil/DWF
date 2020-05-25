@@ -9,6 +9,12 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+
 // steps:
 // 1) login with 2nd tutorial from today
 // 2) do that at the start
@@ -37,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
         viewController = new ViewController(this);
         PinchGestureListener pinchGestureListener = new PinchGestureListener(viewController);
         scaleGestureDetector = new ScaleGestureDetector(this, pinchGestureListener);
+
+
+        // Instantiate the cache
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        // Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+        RequestQueueSingleton.init(cache, network);
     }
 
     @Override

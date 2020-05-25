@@ -10,14 +10,11 @@ import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = "LOGIN_TAG:";
-    private HttpRequestQueueAdapter mQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        mQueue = HttpRequestQueueAdapter.CreateQueueAdapter(this, TAG);
     }
 
     public void onClickLogin(View v) {
@@ -39,6 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        mQueue.cancelAll();
+        RequestQueueSingleton.getInstance().cancelAll(TAG);
     }
 }

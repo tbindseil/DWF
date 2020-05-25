@@ -6,20 +6,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONObject;
 
 public class CreatePictureActivity extends AppCompatActivity {
     private static final String TAG = "CREATE_PICTURE_TAG";
-    private HttpRequestQueueAdapter mQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_picture);
-
-        // Instantiate the RequestQueue.
-        mQueue = HttpRequestQueueAdapter.CreateQueueAdapter(this, TAG);
     }
 
     // TODO send title and hopefully username!
@@ -43,12 +43,14 @@ public class CreatePictureActivity extends AppCompatActivity {
         };
 
         // Add the request to the RequestQueue.
-        mQueue.addRequest(url, responseListener, errorListener);
+        JSONObject parameters = new JSONObject();
+        Request<JSONObject> request = new JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener);
+        RequestQueueSingleton.getInstance().add(request, TAG);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mQueue.cancelAll();
+        RequestQueueSingleton.getInstance().cancelAll(TAG);
     }
 }
