@@ -5,8 +5,14 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpRequestQueueAdapter {
     private RequestQueue mQueue;
@@ -26,9 +32,18 @@ public class HttpRequestQueueAdapter {
         mTag = tag;
     }
 
-    public void addRequest(String url, Response.Listener<String> responseListener, Response.ErrorListener errorListener) {
+    public void addRequest(String url, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+        Map<String, String> params = new HashMap<>();
+        addRequest(url, responseListener, errorListener, params);
+    }
+
+    public void addRequest(String url,
+                           Response.Listener<JSONObject> responseListener,
+                           Response.ErrorListener errorListener,
+                           Map<String, String> params) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
+        JSONObject parameters = new JSONObject(params);
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener);
         stringRequest.setTag(mTag);
 
         // Add the request to the RequestQueue.

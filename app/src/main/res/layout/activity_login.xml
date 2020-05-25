@@ -12,7 +12,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/optionsLayout"
+        app:layout_constraintBottom_toTopOf="@id/credentialsLayout"
         android:id="@+id/loginTitle"
         android:text="Login or Sign Up!">
     </TextView>
@@ -20,13 +20,14 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/optionsLayout"
+        android:id="@+id/credentialsLayout"
         android:orientation="vertical"
         app:layout_constraintWidth_percent="0.85"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginTitle"
-        app:layout_constraintBottom_toTopOf="@id/loginButton">
+        app:layout_constraintBottom_toTopOf="@id/buttonsLayout">
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,29 +37,40 @@
             android:text="&lt;username&gt;">
         </EditText>
 
-        <!--
-        android:inputType="textPassword"
-        -->
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/passwordText"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:text="&lt;password&gt;">
         </EditText>
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintVertical_bias="0.04"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/optionsLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/loginButton"
-        android:onClick="onClickLogin"
-        android:text="Login/Sign Up">
-    </Button>
+        app:layout_constraintTop_toBottomOf="@id/credentialsLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginButton"
+            android:onClick="onClickLogin"
+            android:text="Login">
+        </Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/signUpButton"
+            android:onClick="onClickSignUp"
+            android:text="Sign Up">
+        </Button>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,16 @@ public class LoginActivity extends AppCompatActivity {
         String username = ((TextView) findViewById(R.id.usernameText)).getText().toString();
         String password = ((TextView) findViewById(R.id.passwordText)).getText().toString();
 
-        // todo send post request
+        //mQueue.addRequest();
+    }
+
+    public void onClickSignUp(View v) {
+        String username = ((TextView) findViewById(R.id.usernameText)).getText().toString();
+        String password = ((TextView) findViewById(R.id.passwordText)).getText().toString();
+
+        String url = "https://draw-n-stuff.com/users/register";
+
+        //mQueue.addRequest();
     }
 
     @Override
