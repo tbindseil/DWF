@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -84,6 +84,12 @@ public class LoginActivity extends AppCompatActivity {
         try {
             // save User
             UserPojo user = GsonSingleton.getInstance().fromJson(response.toString(), UserPojo.class);
+            SharedPreferences sharedPref = getSharedPreferences("USER", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            String userJson = GsonSingleton.getInstance().toJson(user);
+            Log.e("LoginActivity", "userJson is " + userJson);
+            editor.putString("USER", userJson);
+            editor.commit();
 
             // serialize user to main activity
             Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);

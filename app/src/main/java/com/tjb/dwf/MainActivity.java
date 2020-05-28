@@ -15,15 +15,14 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 
-import java.io.Serializable;
-
 // steps:
 // 0) create user with 2nd tutorial - done
 // 1) login with 2nd tutorial from today - done
 // 2) do that at the start - done
 // 3) store and reuse jwt in single session - done
     // 3.5) consolidate user maintenance to a base activity class' onResume - done
-// 4) store and reuse jwt in multiple sessions (not encrypted)
+// 4) store and reuse jwt in multiple sessions (not encrypted) - done
+// 5) logout
 // 5) store and reuse jwt in multiple sessions, encrypted
 // 6) research token expiration
 // 7) validate input
@@ -55,7 +54,7 @@ public class MainActivity extends AuthenticatedActivity {
         // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
         RequestQueueSingleton.init(cache, network);
-
+        Log.e("MainActivity", "end onCreate");
     }
 
     @Override
