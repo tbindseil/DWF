@@ -13,7 +13,6 @@ import java.io.Serializable;
 public abstract class AuthenticatedActivity extends AppCompatActivity {
     protected UserPojo mUser;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +22,8 @@ public abstract class AuthenticatedActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // maybe these two are moved to user controller?
 
         // check login status from previous activity
         Serializable result = getIntent().getSerializableExtra(UserPojo.SERIALIZE_TAG);

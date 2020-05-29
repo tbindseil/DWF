@@ -2,7 +2,9 @@ package com.tjb.dwf;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,7 +24,7 @@ import com.android.volley.toolbox.HurlStack;
 // 3) store and reuse jwt in single session - done
     // 3.5) consolidate user maintenance to a base activity class' onResume - done
 // 4) store and reuse jwt in multiple sessions (not encrypted) - done
-// 5) logout
+// 5) logout - done
 // 5) store and reuse jwt in multiple sessions, encrypted
 // 6) research token expiration
 // 7) validate input
@@ -54,7 +56,6 @@ public class MainActivity extends AuthenticatedActivity {
         // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
         RequestQueueSingleton.init(cache, network);
-        Log.e("MainActivity", "end onCreate");
     }
 
     @Override
@@ -67,6 +68,17 @@ public class MainActivity extends AuthenticatedActivity {
     public void onClickCreatePicture(View v) {
         Intent intent = new Intent(this, CreatePictureActivity.class);
         intent.putExtra(UserPojo.SERIALIZE_TAG, mUser);
+        startActivity(intent);
+    }
+
+    public void onClickLogout(View v) {
+        mUser = null;
+        SharedPreferences sharedPref = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("USER", null);
+        editor.commit();
+
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
