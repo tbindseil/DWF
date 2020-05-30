@@ -2,9 +2,11 @@ package com.tjb.dwf;
 
 import android.content.Context;
 
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,5 +25,21 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         assertEquals("com.tjb.dwf", appContext.getPackageName());
+    }
+
+    /*@Rule
+    public ActivityTestRule<MainActivity> activityRule
+            = new ActivityTestRule<>(
+            NextActivity.class,
+            true,     // initialTouchMode
+            false);   // launchActivity. False to customize the intent*/
+
+
+    @Test
+    public void mainActivityTest() {
+        //String scenario = launchActivity<MainActivity>();
+
+        ActivityScenario<MainActivity> scenario1 = ActivityScenario.launch(MainActivity.class);
+
     }
 }

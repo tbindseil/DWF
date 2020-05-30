@@ -25,6 +25,17 @@ import com.android.volley.toolbox.HurlStack;
     // 3.5) consolidate user maintenance to a base activity class' onResume - done
 // 4) store and reuse jwt in multiple sessions (not encrypted) - done
 // 5) logout - done
+// 6) test
+    // activities redirect to LoginActivity if not LoginActivity
+    // LoginActivity
+        // username and password are checked on submission
+        // upon bad login, a message is shown
+        // upon good login, mainActivity is started
+    // MainActivity
+        // starts in pictureView
+        // pinch ends in optionsView
+        // open pinch ends in pictureView
+    // CreatePictureActivity - probably doesn't need to be tested
 // 5) store and reuse jwt in multiple sessions, encrypted
 // 6) research token expiration
 // 7) validate input
