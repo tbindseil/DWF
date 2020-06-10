@@ -26,20 +26,4 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.tjb.dwf", appContext.getPackageName());
     }
-
-    /*@Rule
-    public ActivityTestRule<MainActivity> activityRule
-            = new ActivityTestRule<>(
-            NextActivity.class,
-            true,     // initialTouchMode
-            false);   // launchActivity. False to customize the intent*/
-
-
-    @Test
-    public void mainActivityTest() {
-        //String scenario = launchActivity<MainActivity>();
-
-        ActivityScenario<MainActivity> scenario1 = ActivityScenario.launch(MainActivity.class);
-
-    }
 }
