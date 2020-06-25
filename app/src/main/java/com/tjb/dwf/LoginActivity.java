@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences sharedPref = getSharedPreferences("USER", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             String userJson = GsonSingleton.getInstance().toJson(user);
-            Log.e("LoginActivity", "userJson is " + userJson);
             editor.putString("USER", userJson);
             editor.commit();
 
