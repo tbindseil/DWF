@@ -16,7 +16,7 @@ public abstract class AuthenticatedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_picture);
+        Log.e("debug", "AuthenticatedActivity.onCreate");
     }
 
     @Override
