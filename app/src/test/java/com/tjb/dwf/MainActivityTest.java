@@ -17,6 +17,8 @@ import org.robolectric.annotation.Config;
 
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.Intents.intending;
+import static androidx.test.espresso.intent.Intents.times;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.anyIntent;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 
 @RunWith(RobolectricTestRunner.class)
@@ -37,6 +39,21 @@ public class MainActivityTest {
 
         mainActivityTestRule.launchActivity(null);
         intended(hasComponent(LoginActivity.class.getName()));
+
+        Intents.release();
+    }
+
+    @Test
+    public void whenUserInIntent_mainActivity_staysOpen() {
+        Intents.init();
+
+        Intent startIntent = new Intent();
+        UserPojo dummyUser = new UserPojo("f", "l", "t", 0);
+        startIntent.putExtra(UserPojo.SERIALIZE_TAG, dummyUser);
+        mainActivityTestRule.launchActivity(startIntent);
+
+        // how to say, "intended matches any 0 times
+        intended(anyIntent(), times(0));
 
         Intents.release();
     }
