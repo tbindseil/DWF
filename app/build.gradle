@@ -40,15 +40,22 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.2.0" // ?
-
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:1.10.19'
-    testImplementation 'org.robolectric:robolectric:4.3'
     androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.1'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation 'org.apache.httpcomponents:httpclient:4.5.12'
+
+    // modules brought in with androidTestImplementation are available in androidTest tree,
+    // while modules brought in with testImplementation are available in test tree.
+    // when using robolectric to run tests on a computer that isn't the android device/emulator,
+    // we want to run in the test tree. But when running these tests on a device we want them in the
+    // androidTest tree. So I'm just bringing in everything twice
+
+    // as androidTestImplementation
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.2.0" // ?
 
     // Core library
     androidTestImplementation 'androidx.test:core:1.2.0'
@@ -77,6 +84,40 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
 
     androidTestImplementation 'androidx.test:core-ktx:1.2.0'
+
+
+    // as testImplementation
+    testImplementation "com.android.support.test.espresso:espresso-intents:3.2.0" // ?
+
+    // Core library
+    testImplementation 'androidx.test:core:1.2.0'
+
+    // AndroidJUnitRunner and JUnit Rules
+    testImplementation 'androidx.test:runner:1.2.0'
+    testImplementation 'androidx.test:rules:1.2.0'
+
+    // Assertions
+    testImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation 'androidx.test.ext:truth:1.2.0'
+    testImplementation 'com.google.truth:truth:0.42'
+
+    // Espresso dependencies
+    testImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    testImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    testImplementation 'androidx.test.espresso:espresso-accessibility:3.2.0'
+    testImplementation 'androidx.test.espresso:espresso-web:3.2.0'
+    testImplementation 'androidx.test.espresso.idling:idling-concurrent:3.2.0'
+
+    // The following Espresso dependency can be either "implementation"
+    // or "testImplementation", depending on whether you want the
+    // dependency to appear on your APK's compile classpath or the test APK
+    // classpath.
+    testImplementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
+
+    testImplementation 'androidx.test:core-ktx:1.2.0'
+
+    testImplementation 'org.robolectric:robolectric:4.3'
 }
 repositories {
     mavenCentral()
