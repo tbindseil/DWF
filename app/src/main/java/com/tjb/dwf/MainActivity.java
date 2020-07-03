@@ -17,6 +17,10 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
 // steps:
 // 0) create user with 2nd tutorial - done
 // 1) login with 2nd tutorial from today - done
@@ -40,13 +44,21 @@ import com.android.volley.toolbox.HurlStack;
 // 6) research token expiration
 // 7) validate input
 // 8) test
+@AndroidEntryPoint
 public class MainActivity extends AuthenticatedActivity {
 
-    private ViewController viewController;
+    private final ViewController viewController;
+
     private ScaleGestureDetector scaleGestureDetector;
 
     private ConstraintLayout pictureLayout;
     private ConstraintLayout optionsLayout;
+
+    @Inject
+    MainActivity(ViewController viewController) {
+        super();
+        this.viewController = viewController;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +70,7 @@ public class MainActivity extends AuthenticatedActivity {
 
         showPicture();
 
-        viewController = new ViewController(this);
+        //viewController = new ViewController(this);
         PinchGestureListener pinchGestureListener = new PinchGestureListener(viewController);
         scaleGestureDetector = new ScaleGestureDetector(this, pinchGestureListener);
 
@@ -110,3 +122,27 @@ public class MainActivity extends AuthenticatedActivity {
         }
     }
 }
+
+
+/*
+
+mainactivitylayoutcontroller (picturelayout, optionslayout) {
+    private boolean optionsShowing() {
+        return pictureLayout.indexOfChild(optionsLayout) >= 0;
+    }
+
+    public void showPicture() {
+        if (optionsShowing()) {
+            pictureLayout.removeView(optionsLayout);
+        }
+    }
+
+    public void showOptions() {
+        if (!optionsShowing()) {
+            pictureLayout.addView(optionsLayout);
+            pictureLayout.bringChildToFront(optionsLayout);
+        }
+    }
+}
+
+ */

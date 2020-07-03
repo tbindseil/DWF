@@ -4,6 +4,7 @@ package com.tjb.dwf;
 public class ViewController {
     private MainActivity mainActivity;
 
+    // What the fuck lol
     public ViewController(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }

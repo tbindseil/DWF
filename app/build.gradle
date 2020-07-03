@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -31,6 +33,14 @@ android {
             includeAndroidResources = true
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
 }
 
 dependencies {
@@ -118,6 +128,14 @@ dependencies {
     testImplementation 'androidx.test:core-ktx:1.2.0'
 
     testImplementation 'org.robolectric:robolectric:4.3'
+
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+
+    //implementation 'com.google.dagger:dagger-android:2.20'
+    //implementation 'com.google.dagger:dagger-android-support:2.20' // if you use the support libraries
+    //annotationProcessor 'com.google.dagger:dagger-android-processor:2.20'
+    //annotationProcessor 'com.google.dagger:dagger-compiler:2.20'
 }
 repositories {
     mavenCentral()
