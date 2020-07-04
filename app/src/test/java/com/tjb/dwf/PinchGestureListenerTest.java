@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class PinchGestureListenerTest {
     @Mock
-    private ViewController viewController;
+    private PinchGestureReceiver pinchGestureReceiver;
     @Mock
     private ScaleGestureDetector detector;
 
@@ -25,7 +25,7 @@ public class PinchGestureListenerTest {
 
     @Before
     public void setup() {
-        pinchGestureListener = new PinchGestureListener(viewController);
+        pinchGestureListener = new PinchGestureListener(pinchGestureReceiver);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class PinchGestureListenerTest {
         // verify
         boolean expected = true;
         assertEquals(expected, observed);
-        verifyZeroInteractions(viewController);
+        verifyZeroInteractions(pinchGestureReceiver);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class PinchGestureListenerTest {
         // verify
         boolean expected = true;
         assertEquals(expected, observed);
-        verify(viewController).showPicture();
+        verify(pinchGestureReceiver).showPicture();
     }
 
     @Test
@@ -77,12 +77,13 @@ public class PinchGestureListenerTest {
         // verify
         boolean expected = true;
         assertEquals(expected, observed);
-        verify(viewController).showOptions();
+        verify(pinchGestureReceiver).showOptions();
     }
 
     @Test
-    public void onScale_thenNothing_whenScaleIsGreaterThanOneNineTimesStraight() {
+    public void onScale_thenNothing_whenScaleIsGreaterThanOneNineTimes_afterLessThanOneOnce() {
         // when
+        when(detector.getScaleFactor()).thenReturn((float).9);
         for (int i = 0; i < 9; ++i) {
             when(detector.getScaleFactor()).thenReturn((float)1.1);
         }
@@ -96,12 +97,13 @@ public class PinchGestureListenerTest {
         // verify
         boolean expected = true;
         assertEquals(expected, observed);
-        verifyZeroInteractions(viewController);
+        verifyZeroInteractions(pinchGestureReceiver);
     }
 
     @Test
-    public void onScale_thenNothing_whenScaleIsLessThanOneNineTimesStraight() {
+    public void onScale_thenNothing_whenScaleIsLessThanOneNineTimes_afterGreaterThanOneOnce() {
         // when
+        when(detector.getScaleFactor()).thenReturn((float)1.1);
         for (int i = 0; i < 9; ++i) {
             when(detector.getScaleFactor()).thenReturn((float).9);
         }
@@ -115,6 +117,6 @@ public class PinchGestureListenerTest {
         // verify
         boolean expected = true;
         assertEquals(expected, observed);
-        verifyZeroInteractions(viewController);
+        verifyZeroInteractions(pinchGestureReceiver);
     }
 }
