@@ -16,9 +16,11 @@ import com.android.volley.Network;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.tjb.dwf.modules.PinchProviders;
 
 import javax.inject.Inject;
 
+import dagger.Component;
 import dagger.hilt.android.AndroidEntryPoint;
 
 // steps:
@@ -47,32 +49,29 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends AuthenticatedActivity {
 
-    private final ViewController viewController;
-
-    private ScaleGestureDetector scaleGestureDetector;
+    @Inject
+    protected PinchGestureReceiver pinchGestureReceiver;
+    @Inject
+    protected PinchGestureListener pinchGestureListener;
+    @Inject
+    protected ScaleGestureDetector scaleGestureDetector;
 
     private ConstraintLayout pictureLayout;
     private ConstraintLayout optionsLayout;
-
-    @Inject
-    MainActivity(ViewController viewController) {
-        super();
-        this.viewController = viewController;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        pinchGestureReceiver.installMainActivity(this);
+        this.pinchGestureListener = pinchGestureListener;
+        scaleGestureDetector = new ScaleGestureDetector(this, pinchGestureListener);
+
         pictureLayout = findViewById(R.id.pictureLayout);
         optionsLayout = findViewById(R.id.optionsLayout);
 
         showPicture();
-
-        //viewController = new ViewController(this);
-        PinchGestureListener pinchGestureListener = new PinchGestureListener(viewController);
-        scaleGestureDetector = new ScaleGestureDetector(this, pinchGestureListener);
 
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -122,27 +121,3 @@ public class MainActivity extends AuthenticatedActivity {
         }
     }
 }
-
-
-/*
-
-mainactivitylayoutcontroller (picturelayout, optionslayout) {
-    private boolean optionsShowing() {
-        return pictureLayout.indexOfChild(optionsLayout) >= 0;
-    }
-
-    public void showPicture() {
-        if (optionsShowing()) {
-            pictureLayout.removeView(optionsLayout);
-        }
-    }
-
-    public void showOptions() {
-        if (!optionsShowing()) {
-            pictureLayout.addView(optionsLayout);
-            pictureLayout.bringChildToFront(optionsLayout);
-        }
-    }
-}
-
- */

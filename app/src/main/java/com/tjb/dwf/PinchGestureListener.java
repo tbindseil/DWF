@@ -1,18 +1,19 @@
 package com.tjb.dwf;
 
-import android.util.Log;
 import android.view.ScaleGestureDetector;
 
+import javax.inject.Inject;
+
 public class PinchGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-    private ViewController viewController;
+    private PinchGestureReceiver pinchGestureReceiver;
 
     private static final int THRESHOLD = 9;
     private int positiveCount;
     private int negativeCount;
 
-    public PinchGestureListener(ViewController viewController) {
+    @Inject
+    public PinchGestureListener(PinchGestureReceiver pinchGestureReceiver) {
         super();
-        this.viewController = viewController;
 
         positiveCount = 0;
         negativeCount = 0;
@@ -38,9 +39,9 @@ public class PinchGestureListener extends ScaleGestureDetector.SimpleOnScaleGest
         }
 
         if (positiveCount > THRESHOLD) {
-            viewController.showPicture();
+            pinchGestureReceiver.showPicture();
         } else if (negativeCount > THRESHOLD) {
-            viewController.showOptions();
+            pinchGestureReceiver.showOptions();
         }
 
         return true;
