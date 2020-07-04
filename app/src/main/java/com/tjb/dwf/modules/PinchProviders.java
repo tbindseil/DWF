@@ -9,9 +9,10 @@ import com.tjb.dwf.PinchGestureReceiver;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ActivityComponent;
 
 @Module
-@InstallIn(MainActivity.class)
+@InstallIn(ActivityComponent.class)
 public class PinchProviders {
     private final PinchGestureReceiver pinchGestureReceiver;
     private final PinchGestureListener pinchGestureListener;

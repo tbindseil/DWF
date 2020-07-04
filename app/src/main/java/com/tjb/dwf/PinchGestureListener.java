@@ -5,7 +5,7 @@ import android.view.ScaleGestureDetector;
 import javax.inject.Inject;
 
 public class PinchGestureListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-    private PinchGestureReceiver pinchGestureReceiver;
+    private final PinchGestureReceiver pinchGestureReceiver;
 
     private static final int THRESHOLD = 9;
     private int positiveCount;
@@ -14,6 +14,8 @@ public class PinchGestureListener extends ScaleGestureDetector.SimpleOnScaleGest
     @Inject
     public PinchGestureListener(PinchGestureReceiver pinchGestureReceiver) {
         super();
+
+        this.pinchGestureReceiver = pinchGestureReceiver;
 
         positiveCount = 0;
         negativeCount = 0;

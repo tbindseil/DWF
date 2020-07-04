@@ -21,6 +21,7 @@ import com.tjb.dwf.modules.PinchProviders;
 import javax.inject.Inject;
 
 import dagger.Component;
+import dagger.hilt.DefineComponent;
 import dagger.hilt.android.AndroidEntryPoint;
 
 // steps:
@@ -53,7 +54,7 @@ public class MainActivity extends AuthenticatedActivity {
     protected PinchGestureReceiver pinchGestureReceiver;
     @Inject
     protected PinchGestureListener pinchGestureListener;
-    @Inject
+
     protected ScaleGestureDetector scaleGestureDetector;
 
     private ConstraintLayout pictureLayout;
