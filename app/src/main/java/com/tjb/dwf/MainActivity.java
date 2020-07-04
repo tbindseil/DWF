@@ -22,7 +22,9 @@ import javax.inject.Inject;
 
 import dagger.Component;
 import dagger.hilt.DefineComponent;
+import dagger.hilt.InstallIn;
 import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 // steps:
 // 0) create user with 2nd tutorial - done
@@ -53,8 +55,6 @@ public class MainActivity extends AuthenticatedActivity {
     @Inject
     protected PinchGestureReceiver pinchGestureReceiver;
     @Inject
-    protected PinchGestureListener pinchGestureListener;
-
     protected ScaleGestureDetector scaleGestureDetector;
 
     private ConstraintLayout pictureLayout;
@@ -66,8 +66,6 @@ public class MainActivity extends AuthenticatedActivity {
         setContentView(R.layout.activity_main);
 
         pinchGestureReceiver.installMainActivity(this);
-        this.pinchGestureListener = pinchGestureListener;
-        scaleGestureDetector = new ScaleGestureDetector(this, pinchGestureListener);
 
         pictureLayout = findViewById(R.id.pictureLayout);
         optionsLayout = findViewById(R.id.optionsLayout);
