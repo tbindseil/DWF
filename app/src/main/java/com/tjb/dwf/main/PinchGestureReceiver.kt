@@ -1,8 +1,10 @@
 package com.tjb.dwf.main
 
 import android.util.Log
+import com.tjb.dwf.di.ActivityScope
 import javax.inject.Inject
 
+@ActivityScope
 class PinchGestureReceiver @Inject constructor() {
     private var mainActivity: MainActivity? = null
 

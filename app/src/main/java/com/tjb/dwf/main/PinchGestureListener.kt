@@ -1,9 +1,11 @@
 package com.tjb.dwf.main
 
 import android.view.ScaleGestureDetector
+import com.tjb.dwf.di.ActivityScope
 
 import javax.inject.Inject
 
+@ActivityScope
 class PinchGestureListener @Inject constructor(
             private val pinchGestureReceiver: PinchGestureReceiver) :
         ScaleGestureDetector.SimpleOnScaleGestureListener() {
