@@ -3,10 +3,11 @@ package com.tjb.dwf;
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.test.espresso.intent.Intents;
 import androidx.test.rule.ActivityTestRule;
+
+import com.tjb.dwf.main.MainActivity;
 
 import org.hamcrest.Matcher;
 import org.junit.Rule;

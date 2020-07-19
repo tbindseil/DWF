@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.io.Serializable;
+import com.tjb.dwf.main.MainActivity;
 
 public class ErrorActivity extends AppCompatActivity {
     public static final String ERROR_SERIALIZATION_TAG = "ERROR";

@@ -2,6 +2,9 @@ package com.tjb.dwf;
 
 import android.view.ScaleGestureDetector;
 
+import com.tjb.dwf.main.PinchGestureListener;
+import com.tjb.dwf.main.PinchGestureReceiver;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

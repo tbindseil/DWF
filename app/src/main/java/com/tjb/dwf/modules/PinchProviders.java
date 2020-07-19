@@ -2,9 +2,8 @@ package com.tjb.dwf.modules;
 
 import android.view.ScaleGestureDetector;
 
-import com.tjb.dwf.DWFApplication;
-import com.tjb.dwf.PinchGestureListener;
-import com.tjb.dwf.PinchGestureReceiver;
+import com.tjb.dwf.main.PinchGestureListener;
+import com.tjb.dwf.main.PinchGestureReceiver;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,5 +1,8 @@
 package com.tjb.dwf;
 
+import com.tjb.dwf.main.MainActivity;
+import com.tjb.dwf.main.PinchGestureReceiver;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

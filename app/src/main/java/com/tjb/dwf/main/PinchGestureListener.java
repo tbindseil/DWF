@@ -1,6 +1,8 @@
-package com.tjb.dwf;
+package com.tjb.dwf.main;
 
 import android.view.ScaleGestureDetector;
+
+import com.tjb.dwf.main.PinchGestureReceiver;
 
 import javax.inject.Inject;
 

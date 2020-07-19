@@ -1,4 +1,4 @@
-package com.tjb.dwf;
+package com.tjb.dwf.main;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -16,14 +15,15 @@ import com.android.volley.Network;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
-import com.tjb.dwf.modules.PinchProviders;
+import com.tjb.dwf.AuthenticatedActivity;
+import com.tjb.dwf.CreatePictureActivity;
+import com.tjb.dwf.LoginActivity;
+import com.tjb.dwf.R;
+import com.tjb.dwf.RequestQueueSingleton;
+import com.tjb.dwf.UserPojo;
+import com.tjb.dwf.main.PinchGestureReceiver;
 
 import javax.inject.Inject;
-
-import dagger.Component;
-import dagger.hilt.DefineComponent;
-import dagger.hilt.InstallIn;
-import dagger.hilt.android.qualifiers.ApplicationContext;
 
 // steps:
 // 0) create user with 2nd tutorial - done
@@ -80,7 +80,7 @@ public class MainActivity extends AuthenticatedActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        pinchGestureReceiver.detachMainActivity();
+        pinchGestureReceiver.uninstallMainActivity();
     }
 
     @Override
