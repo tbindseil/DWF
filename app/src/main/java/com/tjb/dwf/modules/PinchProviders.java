@@ -1,9 +1,12 @@
 package com.tjb.dwf.modules;
 
+import android.content.Context;
 import android.view.ScaleGestureDetector;
 
 import com.tjb.dwf.main.PinchGestureListener;
 import com.tjb.dwf.main.PinchGestureReceiver;
+
+import javax.inject.Inject;
 
 import dagger.Module;
 import dagger.Provides;
@@ -17,12 +20,15 @@ public class PinchProviders {
     private final PinchGestureListener pinchGestureListener;
     private final ScaleGestureDetector scaleGestureDetector;
 
+    @Inject
+    Context context;
+
     public PinchProviders() {
         pinchGestureReceiver = new PinchGestureReceiver();
         pinchGestureListener = new PinchGestureListener(pinchGestureReceiver);
 
         // TODO investigate timeline of this module getting constructed and the DWFApplication's onCreate
-        scaleGestureDetector = new ScaleGestureDetector(null/*TODO*/, pinchGestureListener);
+        scaleGestureDetector = new ScaleGestureDetector(context, pinchGestureListener);
     }
 
     @Provides

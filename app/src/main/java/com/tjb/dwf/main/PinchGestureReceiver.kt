@@ -19,7 +19,7 @@ class PinchGestureReceiver @Inject constructor() {
         if (mainActivity != null) {
             mainActivity?.showOptions()
         } else {
-            Log.e("PinchGestureReceiver", "MainActivity is null");
+            Log.e("PinchGestureReceiver", "MainActivity is null")
         }
     }
 
@@ -28,7 +28,7 @@ class PinchGestureReceiver @Inject constructor() {
         if (mainActivity != null) {
             mainActivity?.showPicture()
         } else {
-            Log.e("PinchGestureReceiver", "MainActivity is null");
+            Log.e("PinchGestureReceiver", "MainActivity is null")
         }
     }
 }

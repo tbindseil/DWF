@@ -21,7 +21,6 @@ import com.tjb.dwf.LoginActivity;
 import com.tjb.dwf.R;
 import com.tjb.dwf.RequestQueueSingleton;
 import com.tjb.dwf.UserPojo;
-import com.tjb.dwf.main.PinchGestureReceiver;
 
 import javax.inject.Inject;
 
@@ -33,6 +32,7 @@ import javax.inject.Inject;
     // 3.5) consolidate user maintenance to a base activity class' onResume - done
 // 4) store and reuse jwt in multiple sessions (not encrypted) - done
 // 5) logout - done
+// 5.5) di
 // 6) test
     // activities redirect to LoginActivity if not LoginActivity
     // LoginActivity
