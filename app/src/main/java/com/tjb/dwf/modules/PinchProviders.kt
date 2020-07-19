@@ -5,6 +5,7 @@ import android.view.ScaleGestureDetector;
 import com.tjb.dwf.di.ActivityScope
 
 import com.tjb.dwf.main.PinchGestureListener;
+import com.tjb.dwf.main.ScaleGestureDetectorWrapper
 import dagger.Binds
 
 import javax.inject.Inject;
@@ -16,5 +17,5 @@ import dagger.Provides;
 abstract class PinchProviders  {
     @Binds
     @ActivityScope
-    abstract fun bindScaleGestureDetector(scaleGestureDetector: ScaleGestureDetector): ScaleGestureDetector
+    abstract fun bindScaleGestureDetector(scaleGestureDetector: ScaleGestureDetectorWrapper): ScaleGestureDetector
 }

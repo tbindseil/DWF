@@ -50,7 +50,7 @@ class MainActivity : AuthenticatedActivity() {
     @Inject
     lateinit var pinchGestureReceiver: PinchGestureReceiver
     @Inject
-    lateinit var scaleGestureDetector: ScaleGestureDetector
+    lateinit var scaleGestureDetector: ScaleGestureDetectorWrapper
 
     // TODO var or val?
     private var pictureLayout: ConstraintLayout? = null
