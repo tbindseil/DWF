@@ -23,7 +23,6 @@ import javax.inject.Inject;
 import dagger.Component;
 import dagger.hilt.DefineComponent;
 import dagger.hilt.InstallIn;
-import dagger.hilt.android.AndroidEntryPoint;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
 // steps:
@@ -49,7 +48,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
 // 6) research token expiration
 // 7) validate input
 // 8) test
-@AndroidEntryPoint
 public class MainActivity extends AuthenticatedActivity {
 
     @Inject
