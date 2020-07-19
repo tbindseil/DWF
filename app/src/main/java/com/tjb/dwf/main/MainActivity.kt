@@ -45,6 +45,8 @@ import javax.inject.Inject;
 // 8) test
 class MainActivity : AuthenticatedActivity() {
 
+    lateinit var mainComponent: MainComponent
+
     @Inject
     lateinit var pinchGestureReceiver: PinchGestureReceiver
     @Inject
@@ -57,7 +59,8 @@ class MainActivity : AuthenticatedActivity() {
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        (application as DWFApplication).appComponent.inject(this)
+        mainComponent = (application as DWFApplication).appComponent.mainComponent().create()
+        mainComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

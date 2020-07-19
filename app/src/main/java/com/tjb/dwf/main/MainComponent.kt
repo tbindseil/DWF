@@ -5,10 +5,11 @@ import com.tjb.dwf.di.ActivityScope
 import dagger.Subcomponent
 
 @ActivityScope
+@Subcomponent
 interface MainComponent {
     @Subcomponent.Factory
     interface Factory {
-        fun create(scaleGestureDetector: ScaleGestureDetector): MainComponent
+        fun create(): MainComponent
     }
 
     fun inject(mainActivity: MainActivity)
