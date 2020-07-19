@@ -9,6 +9,10 @@ public class PinchGestureReceiver {
         this.mainActivity = mainActivity;
     }
 
+    public void detachMainActivity() {
+        this.mainActivity = null;
+    }
+
     public void showOptions() {
         if (mainActivity != null) {
             mainActivity.showOptions();

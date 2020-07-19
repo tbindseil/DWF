@@ -80,6 +80,12 @@ public class MainActivity extends AuthenticatedActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        pinchGestureReceiver.detachMainActivity();
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         boolean isPinch = scaleGestureDetector.onTouchEvent(ev);
 
