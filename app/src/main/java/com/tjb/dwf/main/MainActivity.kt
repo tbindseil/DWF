@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import com.android.volley.Cache;
@@ -108,7 +107,7 @@ class MainActivity : AuthenticatedActivity() {
     }
 
     private fun optionsShowing(): Boolean {
-        return pictureLayout!!.indexOfChild(optionsLayout) >= 2
+        return pictureLayout!!.indexOfChild(optionsLayout) >= 0
     }
 
     fun showPicture() {
