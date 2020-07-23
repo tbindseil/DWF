@@ -48,6 +48,8 @@ public class MainActivityTest {
     public void whenUserInIntent_mainActivity_staysOpen() {
         Intents.init();
 
+        // TODO using intents probably isn't best. Investigate using an AppComponent scoped thing
+
         Intent startIntent = new Intent();
         UserPojo dummyUser = new UserPojo("f", "l", "t", 0);
         startIntent.putExtra(UserPojo.SERIALIZE_TAG, dummyUser);
