@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ErrorActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".user.LoginActivity" />
         <activity android:name=".CreatePictureActivity" />
         <activity android:name=".main.MainActivity">
             <intent-filter>

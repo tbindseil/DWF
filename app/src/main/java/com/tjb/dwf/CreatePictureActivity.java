@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class CreatePictureActivity extends AuthenticatedActivity {
+public class CreatePictureActivity extends AppCompatActivity {
     private static final String TAG = "CREATE_PICTURE_TAG";
 
     @Override
@@ -28,7 +28,7 @@ public class CreatePictureActivity extends AuthenticatedActivity {
 
     // TODO send title and hopefully username!
     public void onClickSubmit(View v) {
-        TextView textView = findViewById(R.id.pictureTitle);
+        /*TextView textView = findViewById(R.id.pictureTitle);
 
         String url ="https://www.draw-n-stuff.com/users";
         Response.Listener responseListener = new Response.Listener<JSONArray>() {
@@ -53,7 +53,7 @@ public class CreatePictureActivity extends AuthenticatedActivity {
                 responseListener,
                 errorListener,
                 mUser.token);
-        RequestQueueSingleton.getInstance().add(request, TAG);
+        RequestQueueSingleton.getInstance().add(request, TAG);*/
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.tjb.dwf;
+package com.tjb.dwf.user;
 
 import java.io.Serializable;
 

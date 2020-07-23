@@ -1,4 +1,4 @@
-package com.tjb.dwf;
+package com.tjb.dwf.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.tjb.dwf.ErrorActivity;
+import com.tjb.dwf.GsonSingleton;
+import com.tjb.dwf.R;
+import com.tjb.dwf.RequestQueueSingleton;
 import com.tjb.dwf.main.MainActivity;
+import com.tjb.dwf.user.UserPojo;
 
 import org.json.JSONObject;
 

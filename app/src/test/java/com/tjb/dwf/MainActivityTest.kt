@@ -7,6 +7,8 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.rule.ActivityTestRule
 import com.tjb.dwf.main.MainActivity
+import com.tjb.dwf.user.LoginActivity
+import com.tjb.dwf.user.UserPojo
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -42,7 +44,6 @@ class MainActivityTest {
         startIntent.putExtra(UserPojo.SERIALIZE_TAG, dummyUser)
         mainActivityTestRule.launchActivity(startIntent)
 
-        // how to say, "intended matches any 0 times
         Intents.intended(IntentMatchers.anyIntent(), Intents.times(0))
         Intents.release()
     }

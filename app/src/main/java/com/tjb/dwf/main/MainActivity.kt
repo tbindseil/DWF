@@ -1,22 +1,20 @@
 package com.tjb.dwf.main;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
+import android.content.Intent
+import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.android.volley.Cache
+import com.android.volley.Network
+import com.android.volley.toolbox.BasicNetwork
+import com.android.volley.toolbox.DiskBasedCache
+import com.android.volley.toolbox.HurlStack
 import com.tjb.dwf.*
-
-import javax.inject.Inject;
+import com.tjb.dwf.user.LoginActivity
+import com.tjb.dwf.user.UserController
+import javax.inject.Inject
 
 // steps:
 // 0) create user with 2nd tutorial - done
@@ -42,10 +40,12 @@ import javax.inject.Inject;
 // 6) research token expiration
 // 7) validate input
 // 8) test
-class MainActivity : AuthenticatedActivity() {
+class MainActivity : AppCompatActivity() {
 
     lateinit var mainComponent: MainComponent
 
+    @Inject
+    lateinit var userController: UserController
     @Inject
     lateinit var pinchGestureReceiver: PinchGestureReceiver
     @Inject
@@ -89,18 +89,13 @@ class MainActivity : AuthenticatedActivity() {
         return if (isPinch) true else super.onTouchEvent(ev)
     }
 
-    fun onClickCreatePicture(v: View) {
+    fun onClickCreatePicture(v: View) { // warning?
         val intent: Intent = Intent(this, CreatePictureActivity::class.java)
-        intent.putExtra(UserPojo.SERIALIZE_TAG, mUser)
         startActivity(intent)
     }
 
-     fun onClickLogout(v: View) {
-        mUser = null
-        val sharedPref: SharedPreferences = getSharedPreferences("USER", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPref.edit()
-        editor.putString("USER", null);
-        editor.commit();
+    fun onClickLogout(v: View) { // warning?
+        userController.logout(this)
 
         val intent: Intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
