@@ -41,6 +41,7 @@ class UserController @Inject constructor() {
         val userJson = sharedPref.getString(USER_KEY, null)
         // TODO beanify gson
         userPojo = GsonSingleton.getInstance().fromJson(userJson, UserPojo::class.java)
+        // Maybe I should check for more than just null
         if (userPojo == null) {
             val intent = Intent(activity, LoginActivity::class.java)
             activity.startActivity(intent)
