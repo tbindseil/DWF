@@ -1,14 +1,12 @@
 package com.tjb.dwf
 
-import android.app.Instrumentation.ActivityResult
-import android.content.Intent
 import android.os.Build
-import android.view.ScaleGestureDetector
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.rule.ActivityTestRule
 import com.tjb.dwf.main.MainActivity
 import com.tjb.dwf.user.LoginActivity
+import com.tjb.dwf.user.SplashScreenActivity
 import com.tjb.dwf.user.UserController
 import com.tjb.dwf.user.UserPojo
 import io.mockk.every

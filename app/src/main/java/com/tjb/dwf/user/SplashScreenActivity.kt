@@ -1,11 +1,11 @@
-package com.tjb.dwf
+package com.tjb.dwf.user
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.tjb.dwf.DWFApplication
+import com.tjb.dwf.R
 import com.tjb.dwf.main.MainActivity
-import com.tjb.dwf.user.LoginActivity
-import com.tjb.dwf.user.UserController
 import javax.inject.Inject
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -14,6 +14,9 @@ class SplashScreenActivity : AppCompatActivity() {
     lateinit var userController: UserController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        (application as DWFApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
