@@ -9,8 +9,8 @@ import io.mockk.mockk
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class MockUserController @Inject constructor() : IUserController {
+//@Singleton
+class MockUserController /*@Inject constructor()*/ : IUserController {
     private val mockUserController = mockk<UserController>()
 
     public fun getMock(): UserController {

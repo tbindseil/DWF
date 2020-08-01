@@ -10,8 +10,8 @@ import java.io.Serializable
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class UserController @Inject constructor() : IUserController {
+//@Singleton
+class UserController /*@Inject constructor()*/ : IUserController {
     private val USER_KEY = "USER"
 
     private var userPojo: UserPojo? = null
