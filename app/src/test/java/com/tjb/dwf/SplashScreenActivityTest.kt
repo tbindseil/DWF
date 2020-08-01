@@ -42,7 +42,11 @@ class SplashScreenActivityTest {
     class MockUserModule {
         //static val mockUserController = mockk<UserController>()
         companion object {
-            val mockUserController = mockk<UserController>()
+            private val mockUserController = mockk<UserController>()
+
+            fun getMockUserContorller(): UserController {
+                return mockUserController
+            }
         }
 
         @Singleton
@@ -77,9 +81,6 @@ class SplashScreenActivityTest {
     var splashScreenActivityTestRule = object : ActivityTestRule<SplashScreenActivity>(SplashScreenActivity::class.java, true, false) {
         override fun beforeActivityLaunched() {
             super.beforeActivityLaunched()
-            val context = activity.applicationContext
-            val testAppComponent = DaggerTestAppComponent.factory().create(context)
-            (activity.application as DWFApplication).setTestAppComponent(testAppComponent)
         }
     }*/
 
@@ -87,7 +88,7 @@ class SplashScreenActivityTest {
     fun whenNoUserInStorage_splashScreenActivity_launchesLoginActivity() {
         Intents.init() // TODO @Before
 
-        every { MockUserModule.mockUserController.getUser(any()) } returns null
+        every { MockUserModule.getMockUserContorller().getUser(any()) } returns null
 
         splashScreenActivityTestRule.launchActivity(null)
 
@@ -100,10 +101,11 @@ class SplashScreenActivityTest {
     @Test
     fun whenUserInStorage_splashScreenActivity_launchesMainActivity() {
         Intents.init()
-        splashScreenActivityTestRule.launchActivity(null)
 
         val dummy = UserPojo("f", "l", "t", 0);
-        every { MockUserModule.mockUserController.getUser(any()) } returns dummy
+        every { MockUserModule.getMockUserContorller().getUser(any()) } returns dummy
+
+        splashScreenActivityTestRule.launchActivity(null)
 
         Intents.intended(IntentMatchers.hasComponent(MainActivity::class.java.name))
         Intents.release()
