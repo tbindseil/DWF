@@ -27,16 +27,16 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import javax.inject.Singleton
 
-//@RunWith(RobolectricTestRunner::class)
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
+//@RunWith(AndroidJUnit4::class) // TODO
 @Config(sdk = [Build.VERSION_CODES.P])
 class SplashScreenActivityTest {
 
     //private val mockUserController = mockk<UserController>()
 
     // TODO scenario rule instead? seems newer
-    //@get:Rule
-    //var splashScreenActivityTestRule = ActivityTestRule(SplashScreenActivity::class.java, true, false)
+    @get:Rule
+    var splashScreenActivityTestRule = ActivityTestRule(SplashScreenActivity::class.java, true, false)
 
     @Module
     class MockUserModule {
@@ -73,7 +73,7 @@ class SplashScreenActivityTest {
     // i htink thie issue is with var/val I want to try to have the test application that overrides initialize
     // i should be able to get this to work now that i have figured out the issue with the modulebeing an inner class
 
-    @get:Rule
+    /*@get:Rule
     var splashScreenActivityTestRule = object : ActivityTestRule<SplashScreenActivity>(SplashScreenActivity::class.java, true, false) {
         override fun beforeActivityLaunched() {
             super.beforeActivityLaunched()
@@ -81,9 +81,9 @@ class SplashScreenActivityTest {
             val testAppComponent = DaggerTestAppComponent.factory().create(context)
             (activity.application as DWFApplication).setTestAppComponent(testAppComponent)
         }
-    }
+    }*/
 
-    @Test
+    /*@Test
     fun whenNoUserInStorage_splashScreenActivity_launchesLoginActivity() {
         Intents.init() // TODO @Before
 
@@ -93,7 +93,7 @@ class SplashScreenActivityTest {
 
         Intents.intended(IntentMatchers.hasComponent(LoginActivity::class.java.name))
         Intents.release()
-    }
+    }*/
 
     // so I think the issue is that I need to make that fake app config
 

@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        mainComponent = (application as DWFApplication).getAppComponent().mainComponent().create()
+        mainComponent = (application as DWFApplication).appComponent.mainComponent().create()
         mainComponent.inject(this)
 
         super.onCreate(savedInstanceState)

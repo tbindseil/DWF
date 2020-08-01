@@ -15,7 +15,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        (application as DWFApplication).getAppComponent().inject(this)
+        (application as DWFApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
