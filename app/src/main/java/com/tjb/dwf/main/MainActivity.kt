@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var scaleGestureDetector: ScaleGestureDetectorWrapper
 
-    // TODO var or val?
+    // TODO var or val? maybe lateinit val?
     private var pictureLayout: ConstraintLayout? = null
     private var optionsLayout: ConstraintLayout? = null
 

@@ -9,6 +9,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
+// TODO can I remove UserModule and just use constructor injection
 @Component(modules = [AppSubcomponents::class, UserModule::class])
 interface AppComponent {
     @Component.Factory

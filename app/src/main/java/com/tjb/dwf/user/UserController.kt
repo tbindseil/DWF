@@ -11,12 +11,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 //@Singleton
-class UserController /*@Inject constructor()*/ : IUserController {
+class UserController /*@Inject constructor()*/ {
     private val USER_KEY = "USER"
 
     private var userPojo: UserPojo? = null
 
-    override fun logout(context: Context) {
+    fun logout(context: Context) {
         userPojo = null
 
         val sharedPref: SharedPreferences = context.getSharedPreferences(USER_KEY, Context.MODE_PRIVATE)
@@ -25,7 +25,7 @@ class UserController /*@Inject constructor()*/ : IUserController {
         editor.commit();
     }
 
-    override fun getUser(activity: Activity): UserPojo? {
+    fun getUser(activity: Activity): UserPojo? {
         if (userPojo != null) {
             return userPojo
         }
