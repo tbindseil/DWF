@@ -1,9 +1,9 @@
 package com.tjb.dwf.di
 
-import com.tjb.dwf.main.MainComponent
+import com.tjb.dwf.main.MainSubcomponent
 import dagger.Module
 
-@Module(subcomponents = [MainComponent::class])
+@Module(subcomponents = [MainSubcomponent::class])
 class AppSubcomponents {
 
 }

@@ -42,7 +42,7 @@ import javax.inject.Inject
 // 8) test
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mainComponent: MainComponent
+    lateinit var mainSubcomponent: MainSubcomponent
 
     @Inject
     lateinit var userController: UserController
@@ -58,8 +58,8 @@ class MainActivity : AppCompatActivity() {
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        mainComponent = (application as DWFApplication).appComponent.mainComponent().create()
-        mainComponent.inject(this)
+        mainSubcomponent = (application as DWFApplication).appComponent.mainComponent().create()
+        mainSubcomponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -5,10 +5,10 @@ import dagger.Subcomponent
 
 @ActivityScope
 @Subcomponent
-interface MainComponent {
+interface MainSubcomponent {
     @Subcomponent.Factory
     interface Factory {
-        fun create(): MainComponent
+        fun create(): MainSubcomponent
     }
 
     fun inject(mainActivity: MainActivity)
