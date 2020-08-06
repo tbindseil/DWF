@@ -52,7 +52,10 @@ class PinchGestureListenerTest {
         val expected = true;
         assertEquals(expected, observed);
         verify(exactly = 1) {
-            pinchGestureReceiver.showPicture()
+            // continue here... not quite sure if i need to go further, but it did feel right to
+            // eliminate pinchGestureReceiver as it was an unneccessay middle man. How can i avoid
+            // the install"" business?
+            mainActivity.showPicture()
         }
     }
 

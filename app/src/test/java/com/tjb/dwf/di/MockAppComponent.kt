@@ -2,7 +2,7 @@ package com.tjb.dwf.di
 
 import android.content.Context
 import com.tjb.dwf.main.MainSubcomponent
-import com.tjb.dwf.main.PinchGestureReceiver
+import com.tjb.dwf.main.PinchGestureListener
 import com.tjb.dwf.user.UserController
 import dagger.*
 import io.mockk.mockk
@@ -41,7 +41,7 @@ class MockAppSubcomponents {
 }
 
 @ActivityScope
-@Subcomponent(modules = [MockPinchGestureReceiver::class])
+@Subcomponent(modules = [MockPinchGestureListener::class])
 interface MockMainSubcomponent: MainSubcomponent {
     @Subcomponent.Factory
     interface Factory: MainSubcomponent.Factory {
@@ -50,18 +50,18 @@ interface MockMainSubcomponent: MainSubcomponent {
 }
 
 @Module
-class MockPinchGestureReceiver {
+class MockPinchGestureListener {
     companion object {
-        private val mockPinchGestureReceiver = mockk<PinchGestureReceiver>()
+        private val mockPinchGestureListener = mockk<PinchGestureListener>()
 
-        fun getMockPinchGestureReceiver(): PinchGestureReceiver {
-            return mockPinchGestureReceiver
+        fun getMockPinchGestureListener(): PinchGestureListener {
+            return mockPinchGestureListener
         }
     }
 
     @ActivityScope
     @Provides
-    fun providesPinchGestureReceiver(): PinchGestureReceiver {
-        return mockPinchGestureReceiver
+    fun providesPinchGestureListener(): PinchGestureListener {
+        return mockPinchGestureListener
     }
 }

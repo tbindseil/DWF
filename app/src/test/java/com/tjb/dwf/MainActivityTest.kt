@@ -1,23 +1,16 @@
 package com.tjb.dwf;
 
-import android.app.Instrumentation.ActivityResult
-import android.content.Intent
 import android.os.Build
-import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.rule.ActivityTestRule
-import com.tjb.dwf.di.MockPinchGestureReceiver
+import com.tjb.dwf.di.MockPinchGestureListener
 import com.tjb.dwf.di.MockUserModule
 import com.tjb.dwf.main.MainActivity
-import com.tjb.dwf.user.LoginActivity
-import com.tjb.dwf.user.UserPojo
 import io.mockk.every
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
@@ -30,7 +23,7 @@ class MainActivityTest {
     @Before
     fun setup() {
         every {
-            MockPinchGestureReceiver.getMockPinchGestureReceiver().installMainActivity(any())
+            MockPinchGestureListener.getMockPinchGestureListener().installMainActivity(any())
         } returns Unit
         mainActivityTestRule.launchActivity(null)
     }
@@ -48,9 +41,9 @@ class MainActivityTest {
     }
 
     @Test
-    fun onCreate_pinchGestureReceiver_installCalled() {
+    fun onCreate_pinchGestureListener_installCalled() {
         verify(exactly = 1) {
-            MockPinchGestureReceiver.getMockPinchGestureReceiver().installMainActivity(mainActivityTestRule.activity)
+            MockPinchGestureListener.getMockPinchGestureListener().installMainActivity(mainActivityTestRule.activity)
         }
     }
 }

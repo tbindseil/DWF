@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var userController: UserController
     @Inject
-    lateinit var pinchGestureReceiver: PinchGestureReceiver
+    lateinit var pinchGestureListener: PinchGestureListener
     @Inject
     lateinit var scaleGestureDetector: ScaleGestureDetectorWrapper
 
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        pinchGestureReceiver.installMainActivity(this)
+        pinchGestureListener.installMainActivity(this)
 
         pictureLayout = findViewById(R.id.pictureLayout)
         optionsLayout = findViewById(R.id.optionsLayout)
@@ -76,11 +76,6 @@ class MainActivity : AppCompatActivity() {
         // Set up the network to use HttpURLConnection as the HTTP client.
         val network: Network = BasicNetwork(HurlStack())
         RequestQueueSingleton.init(cache, network)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        pinchGestureReceiver.uninstallMainActivity()
     }
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
@@ -96,7 +91,6 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickLogout() {
         userController.logout(this)
-
     }
 
     private fun optionsShowing(): Boolean {
