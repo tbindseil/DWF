@@ -97,8 +97,6 @@ class MainActivity : AppCompatActivity() {
     fun onClickLogout() {
         userController.logout(this)
 
-        val intent: Intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
     }
 
     private fun optionsShowing(): Boolean {
