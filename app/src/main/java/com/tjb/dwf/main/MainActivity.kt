@@ -89,12 +89,12 @@ class MainActivity : AppCompatActivity() {
         return if (isPinch) true else super.onTouchEvent(ev)
     }
 
-    fun onClickCreatePicture(v: View) { // warning?
+    fun onClickCreatePicture() {
         val intent: Intent = Intent(this, CreatePictureActivity::class.java)
         startActivity(intent)
     }
 
-    fun onClickLogout(v: View) { // warning?
+    fun onClickLogout() {
         userController.logout(this)
 
         val intent: Intent = Intent(this, LoginActivity::class.java)
