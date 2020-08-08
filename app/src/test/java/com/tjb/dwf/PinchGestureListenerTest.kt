@@ -1,20 +1,26 @@
 package com.tjb.dwf
 
 import android.view.ScaleGestureDetector
+import com.tjb.dwf.main.MainActivity
 import com.tjb.dwf.main.PinchGestureListener
-import com.tjb.dwf.main.PinchGestureReceiver
 import io.mockk.Called
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import junit.framework.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 
 class PinchGestureListenerTest {
-    private val pinchGestureReceiver = mockk<PinchGestureReceiver>(relaxed = true)
+    private val mainActivity = mockk<MainActivity>(relaxed = true)
     private val scaleGestureDetector = mockk<ScaleGestureDetector>()
 
-    private val pinchGestureListener = PinchGestureListener(pinchGestureReceiver)
+    private val pinchGestureListener = PinchGestureListener()
+
+    @Before
+    fun setup() {
+        pinchGestureListener.installMainActivity(mainActivity)
+    }
 
     @Test
     fun onScale_thenTrue_always() {
@@ -54,7 +60,11 @@ class PinchGestureListenerTest {
         verify(exactly = 1) {
             // continue here... not quite sure if i need to go further, but it did feel right to
             // eliminate pinchGestureReceiver as it was an unneccessay middle man. How can i avoid
-            // the install"" business?
+            // the install"" business? TODO
+            //
+            // maybe a cause for the view controller. then when other user input needs to interact
+            // it will go through the view controller
+            // we'll see
             mainActivity.showPicture()
         }
     }
@@ -74,7 +84,7 @@ class PinchGestureListenerTest {
         val expected = true;
         assertEquals(expected, observed);
         verify(exactly = 1) {
-            pinchGestureReceiver.showPicture()
+            mainActivity.showPicture()
         }
     }
 
@@ -93,7 +103,7 @@ class PinchGestureListenerTest {
         val expected = true;
         assertEquals(expected, observed);
         verify(exactly = 1) {
-            pinchGestureReceiver.showOptions()
+            mainActivity.showOptions()
         }
     }
 
@@ -118,7 +128,7 @@ class PinchGestureListenerTest {
         val expected = true;
         assertEquals(expected, observed);
         verify {
-            pinchGestureReceiver wasNot Called
+            mainActivity wasNot Called
         }
     }
 
@@ -143,7 +153,7 @@ class PinchGestureListenerTest {
         val expected = true;
         assertEquals(expected, observed);
         verify {
-            pinchGestureReceiver wasNot Called
+            mainActivity wasNot Called
         }
     }
 }
