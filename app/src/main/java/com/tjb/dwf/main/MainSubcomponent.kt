@@ -4,7 +4,7 @@ import com.tjb.dwf.di.ActivityScope
 import dagger.Subcomponent
 
 @ActivityScope
-@Subcomponent
+@Subcomponent(modules = [MainModule::class])
 interface MainSubcomponent {
     @Subcomponent.Factory
     interface Factory {

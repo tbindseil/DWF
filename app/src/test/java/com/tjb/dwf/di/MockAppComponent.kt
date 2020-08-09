@@ -1,6 +1,7 @@
 package com.tjb.dwf.di
 
 import android.content.Context
+import com.tjb.dwf.main.MainModule
 import com.tjb.dwf.main.MainSubcomponent
 import com.tjb.dwf.main.PinchGestureListener
 import com.tjb.dwf.user.UserController
@@ -41,7 +42,7 @@ class MockAppSubcomponents {
 }
 
 @ActivityScope
-@Subcomponent(modules = [MockPinchGestureListener::class])
+@Subcomponent(modules = [MockPinchGestureListener::class, MainModule::class])
 interface MockMainSubcomponent: MainSubcomponent {
     @Subcomponent.Factory
     interface Factory: MainSubcomponent.Factory {

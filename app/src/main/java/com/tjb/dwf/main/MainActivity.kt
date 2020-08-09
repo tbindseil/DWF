@@ -3,6 +3,7 @@ package com.tjb.dwf.main;
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.volley.Cache
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var pinchGestureListener: PinchGestureListener
     @Inject
-    lateinit var scaleGestureDetector: ScaleGestureDetectorWrapper
+    lateinit var scaleGestureDetector: ScaleGestureDetector
 
     // TODO var or val? maybe lateinit val?
     private var pictureLayout: ConstraintLayout? = null
