@@ -3,19 +3,9 @@ package com.tjb.dwf;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.Serializable;
+import com.tjb.dwf.webclient.RequestQueueSingleton;
 
 public class CreatePictureActivity extends AppCompatActivity {
     private static final String TAG = "CREATE_PICTURE_TAG";

@@ -1,24 +1,23 @@
-package com.tjb.dwf;
+package com.tjb.dwf.webclient;
 
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class AuthorizedJsonArrayRequest extends JsonArrayRequest {
+public class AuthorizedJsonObjectRequest extends JsonObjectRequest {
     private String token;
 
-    public AuthorizedJsonArrayRequest(int method,
+    public AuthorizedJsonObjectRequest(int method,
                                        String url,
-                                       JSONArray jsonRequest,
-                                       Response.Listener<JSONArray> listener,
+                                       JSONObject jsonRequest,
+                                       Response.Listener<JSONObject> listener,
                                        Response.ErrorListener errorListener,
                                        String token) {
         super(method, url, jsonRequest, listener, errorListener);

@@ -3,7 +3,6 @@ package com.tjb.dwf.main;
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.volley.Cache
@@ -12,8 +11,8 @@ import com.android.volley.toolbox.BasicNetwork
 import com.android.volley.toolbox.DiskBasedCache
 import com.android.volley.toolbox.HurlStack
 import com.tjb.dwf.*
-import com.tjb.dwf.user.LoginActivity
 import com.tjb.dwf.user.UserController
+import com.tjb.dwf.webclient.RequestQueueSingleton
 import javax.inject.Inject
 
 // steps:

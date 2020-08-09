@@ -1,4 +1,4 @@
-package com.tjb.dwf.user;
+/*package com.tjb.dwf.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,14 +17,15 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.tjb.dwf.ErrorActivity;
 import com.tjb.dwf.GsonSingleton;
 import com.tjb.dwf.R;
-import com.tjb.dwf.RequestQueueSingleton;
+import com.tjb.dwf.webclient.RequestQueueSingleton;
 import com.tjb.dwf.main.MainActivity;
-import com.tjb.dwf.user.UserPojo;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = "LOGIN_TAG:";
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             onErrorResponse(error);
         };
 
+        // activities have to wait for their own calls to finish TODO
         Request<JSONObject> request = new JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener);
         RequestQueueSingleton.getInstance().add(request, TAG);
     }
@@ -82,13 +84,34 @@ public class LoginActivity extends AppCompatActivity {
             onErrorResponse(error);
         };
 
+        // TODO JsonObjectRequest factory? builder? prototype? flyweight?
+        // builder pro, can add in authentication headers independently
+        //         con, have to add in authentication headers independently
+        // factory pro, can ask for authenticated request, or request prototype
+        //         con, have to make new factory method whenever a new request prototype is made
+        //         so, what other request functionalities do i need
+        //              authenticated
+        //              parameters
+        //              response
+        //         maybe this is when I look into the smithy model thing
+        //         Or I could just keep on rolling... ie have an object family (abstract factory) that
+        //         does make request, make response
+        //         ehhh but idk if I really like that because I feel like each call to makeRequest
+        //         would require the parameters as a pojo. So I have to make pojos + request + response
+        //         per api/action/interaction with the backend
+        //         then the factory would be something like
+        //         actually, I kinda like that, use gson to go between pojo and json
+        //         so, one abstractfactory, then one concrete factory for each api
+        //         each concrete factory has make request, make response handler, make error handler
         Request<JSONObject> request = new JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener);
         RequestQueueSingleton.getInstance().add(request, TAG);
     }
 
+    // TODO different calls and different handlers?
     private void onResponse(JSONObject response) {
         try {
             // save User
+            // TODO gson is a singleton
             UserPojo user = GsonSingleton.getInstance().fromJson(response.toString(), UserPojo.class);
             SharedPreferences sharedPref = getSharedPreferences("USER", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -118,4 +141,4 @@ public class LoginActivity extends AppCompatActivity {
         super.onStop();
         RequestQueueSingleton.getInstance().cancelAll(TAG);
     }
-}
+}*/
