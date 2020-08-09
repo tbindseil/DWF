@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.tjb.dwf.webclient.RequestQueueSingleton;
+//import com.tjb.dwf.webclient.RequestQueueSingleton;
 
 public class CreatePictureActivity extends AppCompatActivity {
     private static final String TAG = "CREATE_PICTURE_TAG";
@@ -49,6 +49,6 @@ public class CreatePictureActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        RequestQueueSingleton.getInstance().cancelAll(TAG);
+        //RequestQueueSingleton.getInstance().cancelAll(TAG);
     }
 }

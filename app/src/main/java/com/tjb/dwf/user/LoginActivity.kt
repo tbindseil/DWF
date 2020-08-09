@@ -8,19 +8,25 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
+import com.google.gson.Gson
 import com.tjb.dwf.ErrorActivity
-import com.tjb.dwf.GsonSingleton
 import com.tjb.dwf.R
 import com.tjb.dwf.main.MainActivity
-import com.tjb.dwf.webclient.RequestQueueSingleton
 import org.json.JSONObject
 import java.util.*
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = "LOGIN_TAG:"
+
+    @Inject
+    lateinit var gson: Gson
+    @Inject
+    lateinit var requestQueue: RequestQueue
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +46,9 @@ class LoginActivity : AppCompatActivity() {
 
         // activities have to wait for their own calls to finish TODO
         val request: Request<JSONObject> = JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener)
-        RequestQueueSingleton.getInstance().add(request, TAG)
+        //RequestQueueSingleton.getInstance().add(request, TAG) // TODO tag part of abstract factory factory method
+        request.setTag(TAG)
+        requestQueue.add(request)
     }
 
     fun onClickSignUp(v: View?) {
@@ -78,18 +86,18 @@ class LoginActivity : AppCompatActivity() {
         //         so, one abstractfactory, then one concrete factory for each api
         //         each concrete factory has make request, make response handler, make error handler
         val request: Request<JSONObject> = JsonObjectRequest(Request.Method.POST, url, parameters, responseListener, errorListener)
-        RequestQueueSingleton.getInstance().add(request, TAG)
+        request.setTag(TAG)
+        requestQueue.add(request)
     }
 
     // TODO different calls and different handlers?
     private fun onResponse(response: JSONObject) {
         try {
             // save User
-            // TODO gson is a singleton
-            val user = GsonSingleton.getInstance().fromJson(response.toString(), UserPojo::class.java)
+            val user = gson.fromJson(response.toString(), UserPojo::class.java)
             val sharedPref = getSharedPreferences("USER", Context.MODE_PRIVATE)
             val editor = sharedPref.edit()
-            val userJson = GsonSingleton.getInstance().toJson(user)
+            val userJson = gson.toJson(user)
             editor.putString("USER", userJson)
             editor.commit()
 
@@ -112,6 +120,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        RequestQueueSingleton.getInstance().cancelAll(TAG)
+        requestQueue.cancelAll(TAG)
     }
 }

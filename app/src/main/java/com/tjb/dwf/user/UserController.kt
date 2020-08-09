@@ -5,12 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
-import com.tjb.dwf.GsonSingleton
+import com.google.gson.Gson
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserController @Inject constructor() {
+class UserController @Inject constructor(private val gson: Gson) {
     private val USER_KEY = "USER"
 
     private var userPojo: UserPojo? = null
@@ -36,9 +36,9 @@ class UserController @Inject constructor() {
         // check for token in storage
         val sharedPref: SharedPreferences = activity.getSharedPreferences(USER_KEY, Context.MODE_PRIVATE)
         val userJson = sharedPref.getString(USER_KEY, null)
-        // TODO beanify gson
-        userPojo = GsonSingleton.getInstance().fromJson(userJson, UserPojo::class.java)
-        // TODO Maybe I should check for more than just null
+        userPojo = gson.fromJson(userJson, UserPojo::class.java)
+
+        // TODO Maybe I should check for more than just null, like call to check authentication
         if (userPojo == null) {
             val intent = Intent(activity, LoginActivity::class.java)
             activity.startActivity(intent)

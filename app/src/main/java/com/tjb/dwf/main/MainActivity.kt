@@ -12,8 +12,8 @@ import com.android.volley.toolbox.BasicNetwork
 import com.android.volley.toolbox.DiskBasedCache
 import com.android.volley.toolbox.HurlStack
 import com.tjb.dwf.*
+import com.tjb.dwf.user.LoginActivity
 import com.tjb.dwf.user.UserController
-import com.tjb.dwf.webclient.RequestQueueSingleton
 import javax.inject.Inject
 
 // steps:
@@ -24,20 +24,21 @@ import javax.inject.Inject
     // 3.5) consolidate user maintenance to a base activity class' onResume - done
 // 4) store and reuse jwt in multiple sessions (not encrypted) - done
 // 5) logout - done
-// 5.5) di
+// 5.5) di - done
 // 6) test
-    // activities redirect to LoginActivity if not LoginActivity
+    // activities redirect to LoginActivity if not LoginActivity - scratched
+    // splash screen activity goes to login/main whether or not user logged in - done
     // LoginActivity
         // username and password are checked on submission
         // upon bad login, a message is shown
         // upon good login, mainActivity is started
     // MainActivity
         // starts in pictureView
-        // pinch ends in optionsView
-        // open pinch ends in pictureView
+        // pinch ends in optionsView - scratch
+        // open pinch ends in pictureView - scratch
     // CreatePictureActivity - probably doesn't need to be tested
-// 5) store and reuse jwt in multiple sessions, encrypted
-// 6) research token expiration
+// 5) store and reuse jwt in multiple sessions, encrypted - scratched
+// 6) research token expiration - scratch
 // 7) validate input
 // 8) test
 class MainActivity : AppCompatActivity() {
@@ -51,7 +52,6 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var scaleGestureDetector: ScaleGestureDetector
 
-    // TODO var or val? maybe lateinit val?
     private var pictureLayout: ConstraintLayout? = null
     private var optionsLayout: ConstraintLayout? = null
 
@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
         val cache: Cache = DiskBasedCache(cacheDir, 1024 * 1024) // 1MB cap
         // Set up the network to use HttpURLConnection as the HTTP client.
         val network: Network = BasicNetwork(HurlStack())
-        RequestQueueSingleton.init(cache, network)
     }
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {

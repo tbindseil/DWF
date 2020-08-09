@@ -1,16 +1,21 @@
 package com.tjb.dwf.di
 
 import android.content.Context
+import com.tjb.dwf.GsonModule
 import com.tjb.dwf.main.MainModule
 import com.tjb.dwf.main.MainSubcomponent
 import com.tjb.dwf.main.PinchGestureListener
 import com.tjb.dwf.user.UserController
+import com.tjb.dwf.webclient.WebModule
 import dagger.*
 import io.mockk.mockk
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [MockAppSubcomponents::class, MockUserModule::class])
+@Component(modules = [MockAppSubcomponents::class,
+    MockUserModule::class,
+    GsonModule::class,
+    WebModule::class])
 interface MockAppComponent : AppComponent {
     @Component.Factory
     interface Factory {
