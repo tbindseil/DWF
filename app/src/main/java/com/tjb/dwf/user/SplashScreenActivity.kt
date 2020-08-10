@@ -6,12 +6,16 @@ import android.os.Bundle
 import com.tjb.dwf.DWFApplication
 import com.tjb.dwf.R
 import com.tjb.dwf.main.MainActivity
+import com.tjb.dwf.utils.NewActivityIntentFactory
 import javax.inject.Inject
 
 class SplashScreenActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userController: UserController
+
+    @Inject
+    lateinit var newActivityIntentFactory: NewActivityIntentFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -27,8 +31,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 else
                     MainActivity::class.java
 
-
-        val intent = Intent(this, nextActivity)
+        val intent = newActivityIntentFactory.makeNewActivityIntent(this, nextActivity)
         this.startActivity(intent)
         finish()
     }

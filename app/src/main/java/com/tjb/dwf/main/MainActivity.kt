@@ -14,6 +14,7 @@ import com.android.volley.toolbox.HurlStack
 import com.tjb.dwf.*
 import com.tjb.dwf.user.LoginActivity
 import com.tjb.dwf.user.UserController
+import com.tjb.dwf.utils.NewActivityIntentFactory
 import javax.inject.Inject
 
 // steps:
@@ -51,6 +52,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var pinchGestureListener: PinchGestureListener
     @Inject
     lateinit var scaleGestureDetector: ScaleGestureDetector
+    @Inject
+    lateinit var newActivityIntentFactory: NewActivityIntentFactory
 
     private var pictureLayout: ConstraintLayout? = null
     private var optionsLayout: ConstraintLayout? = null
@@ -84,7 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickCreatePicture() {
-        val intent: Intent = Intent(this, CreatePictureActivity::class.java)
+        val intent = newActivityIntentFactory.makeNewActivityIntent(this, CreatePictureActivity::class.java)
         startActivity(intent)
     }
 

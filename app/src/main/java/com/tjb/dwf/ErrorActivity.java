@@ -28,7 +28,8 @@ public class ErrorActivity extends AppCompatActivity {
     }
 
     public void onClickMainActivityButton(View v) {
-        Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
+        // newActivityFactory.makeNewActivity TODO
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
