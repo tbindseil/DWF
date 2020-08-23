@@ -5,6 +5,7 @@ import com.tjb.dwf.GsonModule
 import com.tjb.dwf.main.MainModule
 import com.tjb.dwf.main.MainSubcomponent
 import com.tjb.dwf.main.PinchGestureListener
+import com.tjb.dwf.storage.StorageModule
 import com.tjb.dwf.user.UserController
 import com.tjb.dwf.webclient.WebModule
 import dagger.*
@@ -15,6 +16,7 @@ import javax.inject.Singleton
 @Component(modules = [MockAppSubcomponents::class,
     MockUserModule::class,
     GsonModule::class,
+    StorageModule::class,
     WebModule::class])
 interface MockAppComponent : AppComponent {
     @Component.Factory

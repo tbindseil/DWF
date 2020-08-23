@@ -1,18 +1,11 @@
 package com.tjb.dwf.main;
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.android.volley.Cache
-import com.android.volley.Network
-import com.android.volley.toolbox.BasicNetwork
-import com.android.volley.toolbox.DiskBasedCache
-import com.android.volley.toolbox.HurlStack
 import com.tjb.dwf.*
-import com.tjb.dwf.user.LoginActivity
 import com.tjb.dwf.user.UserController
 import com.tjb.dwf.utils.NewActivityIntentFactory
 import javax.inject.Inject
@@ -73,11 +66,6 @@ class MainActivity : AppCompatActivity() {
         optionsLayout = findViewById(R.id.optionsLayout)
 
         showPicture()
-
-        // Instantiate the cache
-        val cache: Cache = DiskBasedCache(cacheDir, 1024 * 1024) // 1MB cap
-        // Set up the network to use HttpURLConnection as the HTTP client.
-        val network: Network = BasicNetwork(HurlStack())
     }
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {

@@ -1,4 +1,4 @@
-package com.tjb.dwf.settings
+package com.tjb.dwf.storage
 
 import java.io.Serializable
 
