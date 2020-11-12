@@ -2,6 +2,7 @@ package com.tjb.dwf.user
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.RequestQueue
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
         passwordText = findViewById<TextView>(R.id.passwordText)
     }
 
-    fun onClickLogin() {
+    fun onClickLogin(v: View) {
         val username = usernameText.text.toString()
         val password = passwordText.text.toString()
         val responseListener = Response.Listener { response: JSONObject -> onResponse(response) }
@@ -52,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
         userController.login(username, password, TAG, responseListener, errorListener)
     }
 
-    fun onClickSignUp() {
+    fun onClickSignUp(v: View) {
         val username = usernameText.text.toString()
         val password = passwordText.text.toString()
         val firstName = "firstName"
@@ -65,14 +66,9 @@ class LoginActivity : AppCompatActivity() {
 
     // TODO different calls and different handlers?
     private fun onResponse(response: JSONObject) {
-        try {
-            // serialize user to main activity
-            val intent = newActivityIntentFactory.makeNewActivityIntent(this, MainActivity::class.java)
-            startActivity(intent)
-        } catch (e: Exception) {
-            Log.e("SignUpResponseHandler", "Exception generating pojo")
-            finish()
-        }
+        // serialize user to main activity
+        val intent = newActivityIntentFactory.makeNewActivityIntent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onErrorResponse(error: VolleyError) {

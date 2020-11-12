@@ -1,11 +1,13 @@
 package com.tjb.dwf;
 
 import android.os.Build
+import android.view.View
 import androidx.test.rule.ActivityTestRule
 import com.tjb.dwf.di.MockPinchGestureListener
 import com.tjb.dwf.di.MockUserModule
 import com.tjb.dwf.main.MainActivity
 import io.mockk.every
+import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Rule
@@ -33,7 +35,8 @@ class MainActivityTest {
         every {
             MockUserModule.getMockUserController().logout(any())
         } returns Unit
-        mainActivityTestRule.activity.onClickLogout()
+        val v = mockk<View>(relaxed = true)
+        mainActivityTestRule.activity.onClickLogout(v)
 
         verify(exactly = 1) {
             MockUserModule.getMockUserController().logout(mainActivityTestRule.activity)

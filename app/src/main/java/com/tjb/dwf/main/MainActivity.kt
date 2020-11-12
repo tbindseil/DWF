@@ -3,6 +3,7 @@ package com.tjb.dwf.main;
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.tjb.dwf.*
@@ -74,12 +75,12 @@ class MainActivity : AppCompatActivity() {
         return if (isPinch) true else super.onTouchEvent(ev)
     }
 
-    fun onClickCreatePicture() {
+    fun onClickCreatePicture(v: View) {
         val intent = newActivityIntentFactory.makeNewActivityIntent(this, CreatePictureActivity::class.java)
         startActivity(intent)
     }
 
-    fun onClickLogout() {
+    fun onClickLogout(v: View) {
         userController.logout(this)
     }
 
