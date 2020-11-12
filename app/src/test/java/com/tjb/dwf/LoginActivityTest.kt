@@ -41,8 +41,6 @@ class LoginActivityTest {
         Intents.release()
     }
 
-    // TODO error handling.. looks like its currently done in the handlers?
-
     @Test
     fun onClickLogin_UserControllerIsCalled() {
         val usernameString = "usernameString"
