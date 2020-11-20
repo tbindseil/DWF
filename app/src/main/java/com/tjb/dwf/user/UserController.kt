@@ -1,21 +1,14 @@
 package com.tjb.dwf.user
 
 import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
-import android.util.Log
-import android.view.View
-import android.widget.TextView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
 import com.google.gson.Gson
 import com.tjb.dwf.storage.Storage
 import com.tjb.dwf.utils.NewActivityIntentFactory
 import com.tjb.dwf.webclient.JsonRequestFactory
+import com.tjb.dwf.webclient.RequestFactory
 import org.json.JSONObject
 import java.util.HashMap
 import javax.inject.Inject
@@ -27,21 +20,22 @@ class UserController @Inject constructor(private val gson: Gson,
                                          private var userModel: UserModel,
                                          private val newActivityIntentFactory: NewActivityIntentFactory,
                                          private val jsonRequestFactory: JsonRequestFactory,
-                                         private val sharedPreferencesStorage: Storage) {
-                                         // TODO investigate fan in / fan out stuff
+                                         private val sharedPreferencesStorage: Storage,
+                                         private val requestFactory: RequestFactory) {
 
     companion object {
         val USER_KEY = "USER"
     }
 
     fun logout(activity: Activity) {
+        val request = requestFactory.makeLogoutRequest(userModel.getUserPojo()!!.token)
+
+        requestQueue.add(request)
+
         userModel.setUserPojo(null)
 
         sharedPreferencesStorage.putString(USER_KEY, null)
 
-        // sounds like I could start login activity from application context (make it static in dwfapplication)
-        // this would actually create a new task, and I think eliminate back pop of activities, which is good here
-        // lastly, it would remove the calling of activity here, but that could be hard to test
         val intent = newActivityIntentFactory.makeNewActivityIntent(activity, LoginActivity::class.java)
         activity.startActivity(intent)
         activity.finish()
@@ -52,7 +46,7 @@ class UserController @Inject constructor(private val gson: Gson,
               tag: String,
               activityResponseListener: Response.Listener<JSONObject>,
               errorListener: Response.ErrorListener) {
-        val url = "https://draw-n-stuff.com/users/authenticate"
+        val url = "https://draw-n-stuff.com/auth/login"
         val params: MutableMap<String?, String?> = HashMap()
         params["username"] = username
         params["password"] = password
@@ -77,17 +71,13 @@ class UserController @Inject constructor(private val gson: Gson,
         requestQueue.add(request)
     }
 
-    fun signUp(firstName: String,
-               lastName: String,
-               username: String,
+    fun signUp(username: String,
                password:String,
                tag: String,
                activityResponseListener: Response.Listener<JSONObject>,
                errorListener: Response.ErrorListener) {
-        val url = "https://draw-n-stuff.com/users/register"
+        val url = "https://draw-n-stuff.com/auth/register"
         val params: MutableMap<String?, String?> = HashMap()
-        params["firstName"] = firstName
-        params["lastName"] = lastName
         params["username"] = username
         params["password"] = password
 
@@ -111,12 +101,13 @@ class UserController @Inject constructor(private val gson: Gson,
 
     private fun saveUser(response: JSONObject) {
         val user = gson.fromJson(response.toString(), UserPojo::class.java)
-        val userJson = gson.toJson(user)
+        userModel.setUserPojo(user)
 
+        val userJson = gson.toJson(user)
         sharedPreferencesStorage.putString(USER_KEY, userJson)
     }
 
-    fun getUser(activity: Activity): UserPojo? {
+    fun getUser(): UserPojo? {
         if (userModel.getUserPojo() != null) {
             return userModel.getUserPojo()
         }

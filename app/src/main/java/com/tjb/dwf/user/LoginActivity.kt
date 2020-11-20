@@ -56,12 +56,10 @@ class LoginActivity : AppCompatActivity() {
     fun onClickSignUp(v: View) {
         val username = usernameText.text.toString()
         val password = passwordText.text.toString()
-        val firstName = "firstName"
-        val lastName = "lastName"
         val responseListener = Response.Listener { response: JSONObject -> onResponse(response) }
         val errorListener = Response.ErrorListener { error: VolleyError -> onErrorResponse(error) }
 
-        userController.signUp(firstName, lastName, username, password, TAG, responseListener, errorListener)
+        userController.signUp(username, password, TAG, responseListener, errorListener)
     }
 
     // TODO different calls and different handlers?

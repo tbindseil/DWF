@@ -26,7 +26,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // maybe get user in its own thread?
         var nextActivity =
-                if (userController.getUser(this) == null)
+                if (userController.getUser() == null)
                     LoginActivity::class.java
                 else
                     MainActivity::class.java

@@ -75,13 +75,13 @@ class LoginActivityTest {
         passwordText.setText(passwordString)
 
         every {
-            MockUserModule.getMockUserController().signUp(any(), any(), usernameString, passwordString, any(), any(), any())
+            MockUserModule.getMockUserController().signUp(usernameString, passwordString, any(), any(), any())
         } returns Unit
         val v = mockk<View>(relaxed = true)
         loginActivityTestRule.activity.onClickSignUp(v)
 
         verify(exactly = 1) {
-            MockUserModule.getMockUserController().signUp(any(), any(), usernameString, passwordString, any(), any(), any())
+            MockUserModule.getMockUserController().signUp(usernameString, passwordString, any(), any(), any())
         }
     }
 

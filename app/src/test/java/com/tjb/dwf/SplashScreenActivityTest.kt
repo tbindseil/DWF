@@ -39,7 +39,7 @@ class SplashScreenActivityTest {
     @Test
     fun whenNoUserInStorage_splashScreenActivity_launchesLoginActivity() {
         every {
-            MockUserModule.getMockUserController().getUser(any()) } returns null
+            MockUserModule.getMockUserController().getUser() } returns null
 
         splashScreenActivityTestRule.launchActivity(null)
 
@@ -48,8 +48,8 @@ class SplashScreenActivityTest {
 
     @Test
     fun whenUserInStorage_splashScreenActivity_launchesMainActivity() {
-        val dummy = UserPojo("f", "l", "t", 0);
-        every { MockUserModule.getMockUserController().getUser(any()) } returns dummy
+        val dummy = UserPojo("u", "t", 0);
+        every { MockUserModule.getMockUserController().getUser() } returns dummy
 
         splashScreenActivityTestRule.launchActivity(null)
 

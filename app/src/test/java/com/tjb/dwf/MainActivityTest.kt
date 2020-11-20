@@ -6,6 +6,7 @@ import androidx.test.rule.ActivityTestRule
 import com.tjb.dwf.di.MockPinchGestureListener
 import com.tjb.dwf.di.MockUserModule
 import com.tjb.dwf.main.MainActivity
+import com.tjb.dwf.user.UserPojo
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -27,6 +28,10 @@ class MainActivityTest {
         every {
             MockPinchGestureListener.getMockPinchGestureListener().installMainActivity(any())
         } returns Unit
+        val user = createUserPojo()
+        every {
+            MockUserModule.getMockUserController().getUser()
+        } returns user
         mainActivityTestRule.launchActivity(null)
     }
 
@@ -48,5 +53,9 @@ class MainActivityTest {
         verify(exactly = 1) {
             MockPinchGestureListener.getMockPinchGestureListener().installMainActivity(mainActivityTestRule.activity)
         }
+    }
+
+    private fun createUserPojo(): UserPojo {
+        return UserPojo("u", "t", 0)
     }
 }

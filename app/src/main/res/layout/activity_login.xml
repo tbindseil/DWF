@@ -34,7 +34,7 @@
             android:id="@+id/usernameText"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:text="&lt;username&gt;">
+            android:text="">
         </EditText>
 
         <EditText
@@ -43,7 +43,7 @@
             android:id="@+id/passwordText"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:text="&lt;password&gt;">
+            android:text="">
         </EditText>
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.tjb.dwf.*
@@ -40,6 +41,9 @@ class MainActivity : AppCompatActivity() {
 
         pictureLayout = findViewById(R.id.pictureLayout)
         optionsLayout = findViewById(R.id.optionsLayout)
+
+        val optionsText = findViewById<TextView>(R.id.optionsText)
+        optionsText.setText("Hello " + userController.getUser()?.username)
 
         showPicture()
     }
